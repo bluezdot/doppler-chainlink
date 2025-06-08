@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "doppler-monorepo",
+  "author": "Whetstone Research",
+  "workspaces": [
+    "packages/*"
+  ],
+  "resolutions": {
+    "typescript": "^5.5.4",
+    "viem": "2.23.1",
+    "ethers": "^5.0.8"
+  }
+}
