@@ -22,20 +22,48 @@ services:
         -c wal_writer_delay=10ms
         -c max_wal_size=1GB
     ports:
-      - "5432:5432"
+      - "6432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
-          cpus: '2'
-          memory: 2G
+          cpus: '4'
+          memory: 4G
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
     restart: unless-stopped
+
+  doppler-indexer:
+    image: konistudio/doppler-v3-indexer:base-sepolia
+    depends_on:
+      - doppler-indexer-database
+    environment:
+      PORT: 3000
+      DATABASE_SCHEMA: public
+      DB_URL: postgresql://postgres:postgres@doppler-indexer-database:5432/base-sepolia
+      IPFS_URL: https://ipfs.w3s.link/ipfs
+    restart: always
+    ports:
+      - "3011:3000"
+
+  doppler-indexer-graphql:
+    image: konistudio/doppler-v3-indexer:base-sepolia
+    depends_on:
+      - doppler-indexer-database
+    environment:
+      PORT: 3000
+      DATABASE_SCHEMA: public
+      DB_URL: postgresql://postgres:postgres@doppler-indexer-database:5432/base-sepolia
+      IPFS_URL: https://ipfs.w3s.link/ipfs
+    restart: always
+    entrypoint: []
+    command: ["bun", "serve"]
+    ports:
+      - "3012:3000"
 
 volumes:
   postgres_data:

@@ -25,7 +25,7 @@ const { unichain, mainnet, baseSepolia, ink, base } = configs;
 export default createConfig({
   database: {
     kind: "postgres",
-    connectionString: "postgresql://postgres:postgres@localhost:5432/default",
+    connectionString: process.env.DB_URL,
     poolConfig: {
       max: 100,
     },
