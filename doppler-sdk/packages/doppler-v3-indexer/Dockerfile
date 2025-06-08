@@ -1,7 +1,7 @@
-FROM oven/bun:1.2
+FROM imbios/bun-node:20-alpine
 
 WORKDIR /app
-COPY . /app
+COPY . .
 
 RUN bun install
 RUN bun codegen

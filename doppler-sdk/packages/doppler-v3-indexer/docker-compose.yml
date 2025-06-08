@@ -42,28 +42,26 @@ services:
     depends_on:
       - doppler-indexer-database
     environment:
-      PORT: 3000
-      DATABASE_SCHEMA: public
-      DB_URL: postgresql://postgres:postgres@doppler-indexer-database:5432/base-sepolia
+      DATABASE_SCHEMA: v1
+      DB_URL: postgresql://postgres:postgres@doppler-indexer-database:5432/default
       IPFS_URL: https://ipfs.w3s.link/ipfs
     restart: always
     ports:
-      - "3011:3000"
+      - "3011:42069"
 
   doppler-indexer-graphql:
     image: konistudio/doppler-v3-indexer:base-sepolia
     depends_on:
       - doppler-indexer-database
     environment:
-      PORT: 3000
-      DATABASE_SCHEMA: public
-      DB_URL: postgresql://postgres:postgres@doppler-indexer-database:5432/base-sepolia
+      DATABASE_SCHEMA: v1
+      DB_URL: postgresql://postgres:postgres@doppler-indexer-database:5432/default
       IPFS_URL: https://ipfs.w3s.link/ipfs
     restart: always
     entrypoint: []
     command: ["bun", "serve"]
     ports:
-      - "3012:3000"
+      - "3012:42069"
 
 volumes:
   postgres_data:
