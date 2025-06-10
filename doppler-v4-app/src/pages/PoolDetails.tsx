@@ -14,7 +14,7 @@ import { ReadQuoter } from "doppler-v4-sdk/dist/entities/quoter/ReadQuoter"
 import { CommandBuilder, V4ActionBuilder, V4ActionType } from "doppler-router"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-const client = new GraphQLClient("https://doppler-v4-poc.ponder-dev.com/")
+const client = new GraphQLClient("http://localhost:3011/")
 
 const GET_POOL_QUERY = `
   query GetPool($address: String!, $chainId: BigInt!) {
@@ -185,7 +185,7 @@ export default function PoolDetails() {
   const handleAmountChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setAmount(value)
-    
+
     if (value && pool) {
       try {
         const amountIn = parseEther(value)
@@ -214,7 +214,7 @@ export default function PoolDetails() {
 
   const handleMaxClick = () => {
     if (!account.address || !pool) return
-    
+
     if (isBuying) {
       // When buying base token, use quote token balance
       if (pool.quoteToken.address === zeroAddress) {
@@ -270,7 +270,7 @@ export default function PoolDetails() {
             <p className="text-sm text-muted-foreground">Liquidity</p>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
             <p className="text-lg font-medium">{formatNumber(BigInt(pool.volumeUsd))}</p>
@@ -316,13 +316,13 @@ export default function PoolDetails() {
 
       <div className="border border-primary/20 rounded-lg p-6 bg-card/50 backdrop-blur">
         <h2 className="text-2xl font-semibold mb-6">Swap</h2>
-        
+
         <Tabs defaultValue="buy" className="w-full" onValueChange={handleTabChange}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="buy">Buy {pool.baseToken.symbol}</TabsTrigger>
             <TabsTrigger value="sell">Sell {pool.baseToken.symbol}</TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="buy" className="space-y-4">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -352,7 +352,7 @@ export default function PoolDetails() {
               )}
             </div>
           </TabsContent>
-          
+
           <TabsContent value="sell" className="space-y-4">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -384,7 +384,7 @@ export default function PoolDetails() {
           </TabsContent>
         </Tabs>
 
-        <Button 
+        <Button
           onClick={handleSwap}
           className="w-full mt-4"
           disabled={!amount || !quotedAmount}

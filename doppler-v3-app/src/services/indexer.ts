@@ -9,7 +9,7 @@ import {
 } from "../gql/graphql";
 import { AssetDocument, PositionsDocument, TokenDocument } from "./documents";
 
-export const INDEXER_URL = import.meta.env.VITE_INDEXER_GRAPHQL;
+export const INDEXER_URL = import.meta.env.VITE_INDEXER_GRAPHQL || 'http://localhost:3011/';
 
 export const useToken = (address: string) =>
   useQuery<TokenQuery>({
