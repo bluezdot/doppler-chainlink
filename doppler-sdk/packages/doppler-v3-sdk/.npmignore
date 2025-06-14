@@ -1,8 +1,0 @@
-src/
-test/
-tsconfig.json
-vite.config.ts
-*.test.ts
-*.md
-.editorconfig
-.gitignore
