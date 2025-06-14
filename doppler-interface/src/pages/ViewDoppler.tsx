@@ -3,10 +3,9 @@ import { useState } from "react";
 import {
   useAccount,
   usePublicClient,
-  useReadContract,
   useWalletClient,
 } from "wagmi";
-import { Address, formatEther, Hex, parseEther } from "viem";
+import { Address, formatEther, Hex, parseEther, zeroAddress } from "viem";
 import {
   PermitSingle,
   SwapRouter02Encoder,
@@ -14,7 +13,7 @@ import {
   getPermitSignature,
 } from "doppler-router";
 import { universalRouterAbi } from "../abis/UniversalRouterABI";
-import { derc20Abi, ReadQuoter } from "doppler-v3-sdk";
+import { ReadQuoter } from "doppler-v3-sdk";
 import { getDrift } from "@/utils/drift";
 import { useAsset, usePositions } from "@/services/indexer";
 import {
@@ -28,9 +27,7 @@ import {
 import LiquidityChart from "../components/LiquidityChart";
 import TokenName from "../components/TokenName";
 import { addresses } from "../addresses";
-import { MigratorABI } from "@/abis/MigratorABI";
 
-const MAX_UINT160 = "0xffffffffffffffffffffffffffffffffffffffff";
 
 function ViewDoppler() {
   // Hooks and state initialization
@@ -39,9 +36,8 @@ function ViewDoppler() {
   const { data: walletClient } = useWalletClient(account);
   const publicClient = usePublicClient();
   const { universalRouter, quoterV2 } = addresses;
-  const drift = getDrift();
-  const quoter = new ReadQuoter(quoterV2, drift);
-  const { liquidityMigrator } = addresses;
+  const drift = getDrift(walletClient);
+  const quoter = new ReadQuoter(quoterV2, zeroAddress, drift);
 
   // Validation and data fetching
   const isValidAddress = id?.match(/^0x[a-fA-F0-9]{40}$/);
@@ -160,13 +156,14 @@ function ViewDoppler() {
         return;
       }
 
-      const { amountOut } = await quoter.quoteExactInput({
+      const { amountOut } = await quoter.quoteExactInputV3({
         tokenIn,
         tokenOut,
         amountIn: inputValueInWei,
-        fee: 3000,
+        fee: 10000,
         sqrtPriceLimitX96: 0n,
       });
+
 
       const formattedAmount = Number(formatEther(amountOut)).toFixed(4);
       setSwapState((prev) => ({
@@ -277,9 +274,8 @@ function buildSwapCommands({
     ? [baseTokenAddress, quoteTokenAddress]
     : [quoteTokenAddress, baseTokenAddress];
 
-  console.log("pathArray", pathArray);
 
-  const path = new SwapRouter02Encoder().encodePathExactInput(pathArray);
+  const path = new SwapRouter02Encoder().encodePath(pathArray, 10000);
 
   const builder = new CommandBuilder();
   if (!isSellingNumeraire && permit && signature) {
@@ -291,6 +287,8 @@ function buildSwapCommands({
       .addWrapEth(addresses.universalRouter, amount)
       .addV3SwapExactIn(account, amount, 0n, path, false);
   }
+
+  console.log("builder", builder);
 
   return builder.build();
 }

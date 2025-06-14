@@ -4,12 +4,19 @@ import {
   AssetsDocument,
   AssetsQuery,
   TokenQuery,
-  AssetQuery,
+  AssetQuery,  
   PositionsQuery,
+  PoolsQuery,
+  PoolFilter,
 } from "../gql/graphql";
-import { AssetDocument, PositionsDocument, TokenDocument } from "./documents";
+import {
+  AssetDocument,
+  PositionsDocument,
+  TokenDocument,
+  PoolsDocument,
+} from "./documents";
 
-export const INDEXER_URL = import.meta.env.VITE_INDEXER_GRAPHQL || 'http://localhost:3011/';
+export const INDEXER_URL = import.meta.env.VITE_INDEXER_GRAPHQL;
 
 export const useToken = (address: string) =>
   useQuery<TokenQuery>({
@@ -40,6 +47,23 @@ export const usePositions = (pool: string | undefined) =>
       return request(INDEXER_URL, PositionsDocument, { pool });
     },
     enabled: !!pool,
+  });
+
+export const usePools = (
+  orderBy: string = "createdAt",
+  orderDirection: string = "desc",
+  limit: number = 10,
+  where?: PoolFilter 
+) =>
+  useQuery<PoolsQuery>({
+    queryKey: ["indexer", "pools", orderBy, orderDirection, limit, where],
+    queryFn: () =>
+      request(INDEXER_URL, PoolsDocument, {
+        orderBy,
+        orderDirection,
+        limit,
+        where,
+      }),
   });
 // export const usePositions = (owner: string) =>
 //   useQuery<PositionPage>({
