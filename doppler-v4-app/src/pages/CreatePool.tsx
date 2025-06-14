@@ -57,7 +57,7 @@ export default function CreatePool() {
           <form onSubmit={handleDeploy} className="space-y-6">
             <div className="space-y-2">
               <label className="text-sm font-medium">Token Name</label>
-              <input 
+              <input
                 type="text"
                 value={formData.tokenName}
                 onChange={(e) => setFormData(prev => ({ ...prev, tokenName: e.target.value }))}
@@ -67,7 +67,7 @@ export default function CreatePool() {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Token Symbol</label>
-              <input 
+              <input
                 type="text"
                 value={formData.tokenSymbol}
                 onChange={(e) => setFormData(prev => ({ ...prev, tokenSymbol: e.target.value.toUpperCase() }))}
@@ -78,15 +78,15 @@ export default function CreatePool() {
               <p className="text-xs text-muted-foreground">Maximum 6 characters, automatically converted to uppercase</p>
             </div>
             <div className="flex gap-4 pt-4">
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="flex-1 bg-primary/90 hover:bg-primary/80"
               >
                 Create Token
               </Button>
               <Link to="/" className="flex-1">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full border-primary/40 hover:bg-primary/10"
                 >
                   Cancel

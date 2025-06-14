@@ -8,6 +8,7 @@ import {
 } from "wagmi";
 import DeployDoppler from "./pages/DeployDoppler";
 import ViewDoppler from "./pages/ViewDoppler";
+import HomeScreen from "./pages/HomeScreen";
 import HomePage from "./pages/HomePage";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -99,7 +100,8 @@ function App() {
 
         <main className="flex-1 p-6">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/pools" element={<HomePage />} />
             <Route path="/deploy" element={<DeployDoppler />} />
             <Route path="/doppler/:id" element={<ViewDoppler />} />
           </Routes>

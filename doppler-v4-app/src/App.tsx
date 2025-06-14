@@ -3,6 +3,7 @@ import { WagmiProvider } from 'wagmi'
 import { config } from './lib/wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import AllPools from './pages/AllPools'
+import HomeScreen from './pages/HomeScreen'
 import CreatePool from './pages/CreatePool'
 import PoolDetails from './pages/PoolDetails'
 import { Navbar } from './components/ui/navbar'
@@ -19,7 +20,8 @@ function App() {
               <Navbar />
               <main className="container mx-auto">
                 <Routes>
-                  <Route path="/" element={<AllPools />} />
+                  <Route path="/" element={<HomeScreen />} />
+                  <Route path="/pools" element={<AllPools />} />
                   <Route path="/create" element={<CreatePool />} />
                   <Route path="/pool/:address" element={<PoolDetails />} />
                 </Routes>
