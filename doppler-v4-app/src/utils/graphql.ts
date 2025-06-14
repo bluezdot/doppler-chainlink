@@ -1,7 +1,7 @@
 import { GraphQLClient } from "graphql-request";
 
 // Initialize GraphQL client
-const client = new GraphQLClient("http://localhost:3011/");
+const client = new GraphQLClient("https://doppler-dev.ponder-dev.com/");
 // const client = new GraphQLClient("http://localhost:42069/");
 
 // Token type definition
@@ -55,7 +55,7 @@ export interface Pools {
 // GraphQL query for fetching pools
 export const GET_POOLS_QUERY = `
   query GetPools {
-    pools(orderBy: "createdAt", orderDirection: "desc", where: { type: "v3" }) {
+    pools(orderBy: "createdAt", orderDirection: "desc", where: { type: "v4" }) {
       items {
         address
         chainId
