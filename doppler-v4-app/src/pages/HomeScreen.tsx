@@ -1,21 +1,10 @@
-import { Button } from "@/components/ui/button";
-
 export default function HomeScreen() {
     return (
         <div className="min-h-screen bg-[#0F0F0F] text-white p-8">
-            <header className="flex justify-between items-center mb-16">
-                <div className="flex items-center gap-2">
-                    <span className="w-4 h-4 rounded-full bg-[#7F4DFA]"></span>
-                    <span className="text-lg font-bold tracking-wider">LEVEL</span>
-                </div>
-                <div className="flex gap-3">
-                    <Button variant="outline">Connect</Button>
-                    <Button>Launch App</Button>
-                </div>
-            </header>
+            {/* Navbar is rendered globally; header removed */}
             <div className="text-center mb-10">
-                <h1 className="text-6xl font-bold tracking-wider mb-2">BumpX.org</h1>
-                <p className="text-2xl text-gray-500">The Best Meme Fair Launch Platform on Ethereum</p>
+                <h1 className="text-6xl font-bold tracking-wider mb-2">Pumpfun.fun</h1>
+                <p className="text-2xl text-gray-500">The Best Meme Fair Launch Platform on MOVE</p>
             </div>
             <div className="flex justify-center gap-4 mb-12 flex-wrap">
                 <span className="bg-[#1A1A1A] rounded px-3 py-2 text-sm">Multi Chain</span>
@@ -25,7 +14,7 @@ export default function HomeScreen() {
         </span>
             </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {Array.from({ length: 12 }).map((_, i) => (
+                {Array.from({ length: 6 }).map((_, i) => (
                     <div key={i} className="bg-[#1A1A1A] rounded-lg p-5 flex flex-col gap-4">
                         <div>
                             <h3 className="text-xl font-bold tracking-wide">This is fine</h3>
