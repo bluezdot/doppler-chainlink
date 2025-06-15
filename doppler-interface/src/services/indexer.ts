@@ -1,69 +1,64 @@
-import { useQuery } from "@tanstack/react-query";
-import { request } from "graphql-request";
+import { useQuery } from '@tanstack/react-query';
+import { request } from 'graphql-request';
 import {
   AssetsDocument,
   AssetsQuery,
   TokenQuery,
-  AssetQuery,  
+  AssetQuery,
   PositionsQuery,
   PoolsQuery,
-  PoolFilter,
-} from "../gql/graphql";
-import {
-  AssetDocument,
-  PositionsDocument,
-  TokenDocument,
-  PoolsDocument,
-} from "./documents";
+  PoolFilter
+} from '../gql/graphql';
+import { AssetDocument, PositionsDocument, TokenDocument, PoolsDocument } from './documents';
 
 export const INDEXER_URL = import.meta.env.VITE_INDEXER_GRAPHQL;
 
 export const useToken = (address: string) =>
   useQuery<TokenQuery>({
-    queryKey: ["indexer", "token", address],
-    queryFn: () => request(INDEXER_URL, TokenDocument, { address }),
+    queryKey: ['indexer', 'token', address],
+    queryFn: () => request(INDEXER_URL, TokenDocument, { address })
   });
 
 export const useAssets = (poolInitializer?: string) =>
   useQuery<AssetsQuery>({
-    queryKey: ["indexer", "assets", poolInitializer],
+    queryKey: ['indexer', 'assets', poolInitializer],
     queryFn: () =>
       request(INDEXER_URL, AssetsDocument, {
-        poolInitializer: poolInitializer?.toLowerCase(),
-      }),
+        poolInitializer: poolInitializer?.toLowerCase()
+      })
   });
 
 export const useAsset = (address: string) =>
   useQuery<AssetQuery>({
-    queryKey: ["indexer", "asset", address],
-    queryFn: () => request(INDEXER_URL, AssetDocument, { address }),
+    queryKey: ['indexer', 'asset', address],
+    queryFn: () => request(INDEXER_URL, AssetDocument, { address })
   });
 
 export const usePositions = (pool: string | undefined) =>
   useQuery<PositionsQuery>({
-    queryKey: ["indexer", "positions", pool],
+    queryKey: ['indexer', 'positions', pool],
     queryFn: () => {
-      if (!pool) throw new Error("Pool address required");
+      if (!pool) throw new Error('Pool address required');
       return request(INDEXER_URL, PositionsDocument, { pool });
     },
-    enabled: !!pool,
+    enabled: !!pool
   });
 
 export const usePools = (
-  orderBy: string = "createdAt",
-  orderDirection: string = "desc",
+  orderBy: string = 'createdAt',
+  orderDirection: string = 'desc',
   limit: number = 10,
-  where?: PoolFilter 
+  where?: PoolFilter
 ) =>
   useQuery<PoolsQuery>({
-    queryKey: ["indexer", "pools", orderBy, orderDirection, limit, where],
+    queryKey: ['indexer', 'pools', orderBy, orderDirection, limit, where],
     queryFn: () =>
       request(INDEXER_URL, PoolsDocument, {
         orderBy,
         orderDirection,
         limit,
-        where,
-      }),
+        where
+      })
   });
 // export const usePositions = (owner: string) =>
 //   useQuery<PositionPage>({

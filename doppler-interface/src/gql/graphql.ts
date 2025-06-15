@@ -2148,7 +2148,21 @@ export type PoolsQueryVariables = Exact<{
 }>;
 
 
-export type PoolsQuery = { __typename?: 'Query', pools: { __typename?: 'poolPage', items: Array<{ __typename?: 'pool', address: string, chainId: any, tick: number, sqrtPrice: any, liquidity: any, createdAt: any, price: any, fee: number, type: string, dollarLiquidity: any, volumeUsd: any, percentDayChange: number, totalFee0: any, totalFee1: any, graduationThreshold: any, graduationBalance: any, isToken0: boolean, lastRefreshed?: any | null, lastSwapTimestamp?: any | null, reserves0: any, reserves1: any, marketCapUsd: any, asset?: { __typename?: 'asset', marketCapUsd: any } | null, baseToken?: { __typename?: 'token', address: string, name: string, symbol: string } | null, quoteToken?: { __typename?: 'token', address: string, name: string, symbol: string } | null, dailyVolume?: { __typename?: 'dailyVolume', volumeUsd: any } | null }> } };
+export type PoolsQuery = {
+  __typename?: 'Query', pools: {
+    __typename?: 'poolPage', items: Array<{
+      __typename?: 'pool', address: string, chainId: any, tick: number, sqrtPrice: any, liquidity: any, createdAt: any, price: any, fee: number, type: string, dollarLiquidity: any, volumeUsd: any, percentDayChange: number, totalFee0: any, totalFee1: any, graduationThreshold: any, graduationBalance: any, isToken0: boolean, lastRefreshed?: any | null, lastSwapTimestamp?: any | null, reserves0: any, reserves1: any, marketCapUsd: any, asset?: {
+        __typename?: 'asset', marketCapUsd: any
+      } | null, baseToken?: {
+        __typename?: 'token', address: string, name: string, symbol: string
+      } | null, quoteToken?: {
+        __typename?: 'token', address: string, name: string, symbol: string
+      } | null, dailyVolume?: {
+        __typename?: 'dailyVolume', volumeUsd: any
+      } | null
+    }>
+  }
+};
 
 export const TokenFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TokenFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"token"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"isDerc20"}}]}}]} as unknown as DocumentNode<TokenFragmentFragment, unknown>;
 export const AssetFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AssetFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"asset"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"numeraire"}},{"kind":"Field","name":{"kind":"Name","value":"timelock"}},{"kind":"Field","name":{"kind":"Name","value":"governance"}},{"kind":"Field","name":{"kind":"Name","value":"liquidityMigrator"}},{"kind":"Field","name":{"kind":"Name","value":"migrationPool"}},{"kind":"Field","name":{"kind":"Name","value":"numTokensToSell"}},{"kind":"Field","name":{"kind":"Name","value":"integrator"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"migratedAt"}}]}}]} as unknown as DocumentNode<AssetFragmentFragment, unknown>;
