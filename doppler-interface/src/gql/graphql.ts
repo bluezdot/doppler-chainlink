@@ -12,9 +12,6 @@ export const getPools = async (): Promise<Pools> => {
 };
 
 export const getPool = async (address: Address, chainId: number): Promise<Pool> => {
-  const response = await client.request<{ pool: Pool }>(GET_POOL_QUERY, {
-    address,
-    chainId: BigInt(chainId).toString()
-  });
+  const response = await client.request<{ pool: Pool }>(GET_POOL_QUERY, { address, chainId: BigInt(chainId).toString() });
   return response.pool;
 };

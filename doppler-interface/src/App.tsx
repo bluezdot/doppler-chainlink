@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useAccount, useConnect, useBalance, useSwitchChain, useDisconnect } from 'wagmi';
-// import DeployDoppler from './pages/DeployDoppler';
-// import ViewDoppler from './pages/ViewDoppler';
+import DeployDoppler from './pages/DeployDoppler';
+import ViewDoppler from './pages/ViewDoppler';
 import HomeScreen from './pages/HomeScreen';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -92,8 +92,8 @@ function App() {
         <main className='flex-1 p-6'>
           <Routes>
             <Route path='/' element={<HomeScreen />} />
-            {/*<Route path='/deploy' element={<DeployDoppler />} />*/}
-            {/*<Route path='/doppler/:id' element={<ViewDoppler />} />*/}
+            <Route path='/deploy' element={<DeployDoppler />} />
+            <Route path='/doppler/:id' element={<ViewDoppler />} />
           </Routes>
         </main>
       </div>

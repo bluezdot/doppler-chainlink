@@ -52,3 +52,9 @@ export interface QuoteToken {
   name: string;
   symbol: string;
 }
+
+// ---
+
+export interface Positions {
+
+}
