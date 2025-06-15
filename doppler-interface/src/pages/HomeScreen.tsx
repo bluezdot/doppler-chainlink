@@ -1,14 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { usePools } from '@/services/indexer';
+import { useQuery } from '@tanstack/react-query';
+import { getPools } from '@/gql/graphql';
 
 export default function HomeScreen() {
-  const {
-    data: pools,
-    error,
-    isLoading
-  } = usePools('createdAt', 'desc', 10, { chainId: '84532', type: 'v3' });
-
-  console.log('pools', pools, error, isLoading);
+  const { data: pools, error, isLoading} = useQuery({
+    queryKey: ['pools'],
+    queryFn: getPools
+  });
 
   const getProgressPercent = (numerator: string, denominator: string) => {
     return denominator ? Math.min(Number((numerator / denominator) * 100), 100) : 0;
@@ -49,7 +47,7 @@ export default function HomeScreen() {
       {isLoading && <div className='text-center text-muted-foreground'>Loading pools...</div>}
       {error && <div className='text-center text-red-500'>{(error as Error).message}</div>}
       <div className='grid gap-8 sm:grid-cols-2 lg:grid-cols-3'>
-        {pools?.pools?.items?.map((pool, i) => (
+        {pools?.items?.map((pool, i) => (
           <div key={i} className='bg-[#1A1A1A] rounded-lg p-5 flex flex-col gap-4'>
             <div>
               <h3 className='text-xl font-bold tracking-wide'>${pool.baseToken.name}/ETH</h3>
