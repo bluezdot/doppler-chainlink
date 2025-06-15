@@ -1,4 +1,4 @@
-import { graphql } from "../gql/gql";
+import { graphql } from "@/gql";
 
 // Define fragments first
 export const TokenFragmentDoc = graphql(`
@@ -150,11 +150,13 @@ export const PoolsDocument = graphql(`
       createdAt
       asset {
         marketCapUsd
+        numTokensToSell
       }
       baseToken {
         address
         name
         symbol
+        image
       }
       quoteToken {
         address
