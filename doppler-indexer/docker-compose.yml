@@ -50,7 +50,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@doppler-indexer-database:5432/default
       - PONDER_RPC_URL_84532=https://sepolia.base.org
-      - PONDER_RPC_URL_1=https://site1.moralis-nodes.com/eth/6ad4c275c50041cc924490d5fa1da517
+      - PONDER_RPC_URL_1=https://eth.llamarpc.com
     restart: unless-stopped
 
 volumes:
