@@ -10,8 +10,7 @@ import {
   PoolFilter
 } from '../gql/graphql';
 import { AssetDocument, PositionsDocument, TokenDocument, PoolsDocument } from './documents';
-
-export const INDEXER_URL = import.meta.env.VITE_INDEXER_GRAPHQL;
+import { INDEXER_URL } from '@/config';
 
 export const useToken = (address: string) =>
   useQuery<TokenQuery>({
@@ -60,21 +59,3 @@ export const usePools = (
         where
       })
   });
-// export const usePositions = (owner: string) =>
-//   useQuery<PositionPage>({
-//     queryKey: ["indexer", "positions", owner],
-//     queryFn: () =>
-//       request(INDEXER_URL, PositionPageDocument, {
-//         owner: owner.toLowerCase(),
-//       }),
-//     enabled: !!owner,
-//   });
-
-// export const useHourBuckets = (poolId: string) =>
-//   useQuery<HourBucketPage>({
-//     queryKey: ["indexer", "hourBuckets", poolId],
-//     queryFn: () =>
-//       request(INDEXER_URL, HourBucketPageDocument, {
-//         poolId: poolId.toLowerCase(),
-//       }),
-//   });

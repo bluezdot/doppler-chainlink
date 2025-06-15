@@ -6,7 +6,8 @@
         "./src/*"
       ]
     },
-    "jsx": "react"
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
   }
 }
 
