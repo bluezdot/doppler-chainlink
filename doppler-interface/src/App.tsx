@@ -42,6 +42,12 @@ function App() {
                     <div className='flex gap-3'>
                         {account.status === 'connected' ? (
                             <div className='flex items-center gap-4'>
+                                <Button
+                                    variant='outline'
+                                    className='bg-transparent border-gray-600 text-white hover:bg-gray-800'
+                                >
+                                    <Link to='/deploy'>Create Token</Link>
+                                </Button>
                                 <span className='text-sm'>
                                     {account.addresses?.[0]?.slice(0, 6)}...
                                     {account.addresses?.[0]?.slice(-4)}
@@ -50,24 +56,23 @@ function App() {
                                     {balance?.formatted.slice(0, 6)} ETH
                                 </span>
                                 <Button
-                                    variant='ghost'
-                                    size='sm'
+                                    variant='outline'
                                     onClick={handleDisconnect}
-                                    className='text-white hover:bg-gray-800'
+                                    className='bg-transparent border-gray-600 text-white hover:bg-gray-800'
                                 >
                                     Disconnect
                                 </Button>
                             </div>
                         ) : (
                             <>
-                                <Button 
-                                    variant='outline' 
+                                <Button
+                                    variant='outline'
                                     className='bg-transparent border-gray-600 text-white hover:bg-gray-800'
                                     asChild
                                 >
                                     <Link to='/deploy'>Create Token</Link>
                                 </Button>
-                                <Button 
+                                <Button
                                     className='bg-[#7F4DFA] hover:bg-[#6B3FE8]'
                                     onClick={handleConnect}
                                 >
