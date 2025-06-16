@@ -1,0 +1,117 @@
+'use client';
+
+import { useState } from 'react';
+import { Settings, Menu } from 'lucide-react';
+
+export default function TradingInterfaceCard() {
+  const [activeTab, setActiveTab] = useState<'buy' | 'sell'>('buy');
+  const [amount, setAmount] = useState('');
+  const [balance] = useState('$1.475');
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+
+  const quickAmounts = ['0.1 SOL', '0.2 SOL', '0.5 SOL', '1 SOL', 'Max'];
+
+  const handleQuickAmount = (quickAmount: string) => {
+    if (quickAmount === 'Max') {
+      setAmount('1.475');
+    } else {
+      setAmount(quickAmount.replace(' SOL', ''));
+    }
+  };
+
+  const calculateReceiveAmount = (inputAmount: string) => {
+    if (!inputAmount || isNaN(Number(inputAmount))) return '0';
+    // Simple calculation for demo - you can implement real conversion logic
+    const solAmount = Number(inputAmount);
+    const crocsAmount = solAmount * 1000000; // Example conversion rate
+    return crocsAmount.toLocaleString();
+  };
+
+  const handleConnectWallet = () => {
+    setIsWalletConnected(!isWalletConnected);
+  };
+
+  return (
+    <div className='bg-gray-900 rounded-lg p-6 max-w-md mx-auto'>
+      {/* Buy/Sell Toggle */}
+      <div className='flex mb-6'>
+        <button
+          onClick={() => setActiveTab('buy')}
+          className={`flex-1 py-3 px-6 rounded-l-lg font-semibold transition-colors ${
+            activeTab === 'buy'
+              ? 'bg-green-500 text-black'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
+        >
+          Buy
+        </button>
+        <button
+          onClick={() => setActiveTab('sell')}
+          className={`flex-1 py-3 px-6 rounded-r-lg font-semibold transition-colors ${
+            activeTab === 'sell'
+              ? 'bg-green-500 text-black'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
+        >
+          Sell
+        </button>
+      </div>
+
+      {/* Balance Display */}
+      <div className='flex justify-end items-center mb-4'>
+        <span className='text-gray-400 text-sm mr-2'>Bal: {balance}</span>
+        <button className='text-gray-400 hover:text-white transition-colors'>
+          <Settings className='w-4 h-4' />
+        </button>
+      </div>
+
+      {/* Amount Input */}
+      <div className='mb-4'>
+        <div className='relative'>
+          <input
+            type='number'
+            placeholder='Enter amount'
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className='w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors'
+          />
+          <div className='absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2'>
+            <span className='text-gray-300 font-medium'>SOL</span>
+            <button className='text-gray-400 hover:text-white transition-colors'>
+              <Menu className='w-4 h-4' />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Amount Buttons */}
+      <div className='flex gap-2 mb-6'>
+        {quickAmounts.map((quickAmount) => (
+          <button
+            key={quickAmount}
+            onClick={() => handleQuickAmount(quickAmount)}
+            className='px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm rounded-lg transition-colors border border-gray-700'
+          >
+            {quickAmount}
+          </button>
+        ))}
+      </div>
+
+      {/* You Receive Section */}
+      <div className='mb-6'>
+        <div className='flex justify-between items-center'>
+          <span className='text-gray-400 text-sm'>You receive</span>
+          <span className='text-white font-medium'>{calculateReceiveAmount(amount)} Crocs</span>
+        </div>
+      </div>
+
+      {/* Connect Wallet Button */}
+      <button
+        onClick={handleConnectWallet}
+        className='w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 rounded-lg transition-colors'
+      >
+        {isWalletConnected ? 'Trade' : 'Connect Wallet'}
+      </button>
+    </div>
+  );
+}

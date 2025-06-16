@@ -1,8 +1,13 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import {useAccount, useBalance, usePublicClient, useWalletClient} from 'wagmi';
+import { useAccount, useBalance, usePublicClient, useWalletClient } from 'wagmi';
 import { Address, formatEther, Hex, parseEther, zeroAddress } from 'viem';
-import { CommandBuilder, getPermitSignature, PermitSingle, SwapRouter02Encoder } from 'doppler-router';
+import {
+  CommandBuilder,
+  getPermitSignature,
+  PermitSingle,
+  SwapRouter02Encoder
+} from 'doppler-router';
 import { universalRouterAbi } from '@/abis/UniversalRouterABI';
 import { ReadQuoter } from 'doppler-v3-sdk';
 import { getDrift } from '@/utils/drift';
@@ -12,8 +17,14 @@ import TokenName from '../components/TokenName';
 import { addresses } from '@/addresses';
 import { useQuery } from '@tanstack/react-query';
 import { getPool } from '@/gql';
+import TopHoldersCard from '@/pages/details/TopHoldersCard';
+import TradingHistoryCard from '@/pages/details/TradingHistoryCard';
+import BondingCurveCard from '@/pages/details/BondingCurveCard';
+import TradingChartCard from "@/pages/details/TradingChartCard";
+import TokenInfoCard from "@/pages/details/TokenInfoCard";
+import TradingInterfaceCard from "@/pages/details/TradingInterfaceCard";
 
-function ViewDoppler() {
+function ViewDopplerV2() {
   const { id } = useParams();
   const account = useAccount();
   const { data: walletClient } = useWalletClient(account);
@@ -21,13 +32,17 @@ function ViewDoppler() {
   const { universalRouter, quoterV2 } = addresses;
   const drift = getDrift(walletClient);
   const quoter = new ReadQuoter(quoterV2, zeroAddress, drift);
-  const chainId = 84532 // todo
+  const chainId = 84532; // todo
 
   // Validation and data fetching
   const isValidAddress = id?.match(/^0x[a-fA-F0-9]{40}$/);
   if (!isValidAddress || !id) return <Navigate to='/' />;
 
-  const { data: pool, isLoading, error } = useQuery({
+  const {
+    data: pool,
+    isLoading,
+    error
+  } = useQuery({
     queryKey: ['pool', id, chainId],
     queryFn: async () => {
       return await getPool(id as Address, chainId);
@@ -38,25 +53,25 @@ function ViewDoppler() {
 
   const { data: _baseTokenBalance } = useBalance({
     address: account.address,
-    token: pool?.baseToken?.address as Address,
+    token: pool?.baseToken?.address as Address
   });
 
   const { data: _quoteTokenBalance } = useBalance({
     address: account.address,
-    token: pool?.quoteToken?.address as Address,
+    token: pool?.quoteToken?.address as Address
   });
 
   const baseTokenBalance = {
     ..._baseTokenBalance,
     symbol: pool?.baseToken?.symbol,
     name: pool?.baseToken?.name
-  }
+  };
 
   const quoteTokenBalance = {
     ..._quoteTokenBalance,
     symbol: pool?.quoteToken?.symbol,
     name: pool?.quoteToken?.name
-  }
+  };
 
   const [swapState, setSwapState] = useState({
     numeraireAmount: '',
@@ -65,9 +80,7 @@ function ViewDoppler() {
   });
 
   // todo
-  const handleSwap = async () => {
-
-  }
+  const handleSwap = async () => {};
 
   // const handleSwap = async () => {
   //   const block = await publicClient.getBlock();
@@ -179,40 +192,40 @@ function ViewDoppler() {
   };
 
   return (
-    <div className='max-w-4xl mx-auto p-6 space-y-6 text-lg'>
+    <div className='mx-auto p-6 space-y-6 text-lg'>
       <header className='flex items-center flex-start'>
-        <TokenName name={quoteTokenBalance?.name ?? ''} symbol={quoteTokenBalance?.symbol ?? ''} /> /{' '}
-        <TokenName name={baseTokenBalance?.name ?? ''} symbol={baseTokenBalance?.symbol ?? ''} />
+        <TokenName name={quoteTokenBalance?.name ?? ''} symbol={quoteTokenBalance?.symbol ?? ''} />{' '}
+        / <TokenName name={baseTokenBalance?.name ?? ''} symbol={baseTokenBalance?.symbol ?? ''} />
       </header>
 
       <Separator />
 
       {isLoading ? (
-          <div className='grid grid-cols-10 gap-6'>
-            <Skeleton className='h-[400px] w-full col-span-7'/>
-            <Skeleton className='h-[400px] w-full col-span-3'/>
+        <div className='grid grid-cols-10 gap-6'>
+          <div className='col-span-7 space-y-6'>
+            <Skeleton className='h-48 w-full' />
+            <Skeleton className='h-48 w-full' />
+            <Skeleton className='h-48 w-full' />
           </div>
+          <div className='col-span-3 space-y-6'>
+            <Skeleton className='h-48 w-full' />
+            <Skeleton className='h-48 w-full' />
+            <Skeleton className='h-48 w-full' />
+          </div>
+        </div>
       ) : (
-          <>
-            <LiquidityInfoCard
-                liquidity={pool?.liquidity}
-                price={pool?.price}
-                currentTick={pool?.tick}
-                baseToken={baseTokenBalance}
-            quoteToken={quoteTokenBalance}
-            // positions={positionItems}
-            positions={[]}
-          />
-
-          <SwapCard
-            baseToken={baseTokenBalance}
-            quoteToken={quoteTokenBalance}
-            swapState={swapState}
-            onAmountChange={handleAmountChange}
-            onSwap={handleSwap}
-            isLoading={isLoading}
-          />
-        </>
+        <div className='grid grid-cols-10 gap-6'>
+          <div className='col-span-7 space-y-6'>
+            <TokenInfoCard className='p-6' />
+            <TradingChartCard className='p-6' />
+            <TradingHistoryCard className='p-6' />
+          </div>
+          <div className='col-span-3 space-y-6'>
+            <TradingInterfaceCard className='p-6' />
+            <BondingCurveCard className='p-6' />
+            <TopHoldersCard className='p-6' />
+          </div>
+        </div>
       )}
     </div>
   );
@@ -410,4 +423,4 @@ const SwapInput = ({
   </div>
 );
 
-export default ViewDoppler;
+export default ViewDopplerV2;
