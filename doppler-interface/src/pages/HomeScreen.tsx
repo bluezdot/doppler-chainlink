@@ -4,6 +4,7 @@ import websiteIcon from '../assets/icons/website.svg';
 import twitterIcon from '../assets/icons/twitter.svg';
 import telegramIcon from '../assets/icons/telegram.svg';
 import { useNavigate } from 'react-router-dom';
+import { formatBigIntToUsd } from '@/utils/utils';
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -24,10 +25,6 @@ export default function HomeScreen() {
     return Math.min((num / denom) * 100, 100);
   };
 
-  const formatBigIntToUsd = (value: bigint) => {
-    return Math.round(Number(value) / 10 ** 18);
-  };
-
   // Create mock data to fill the grid like in the image
   const mockTokens = Array.from({ length: 12 }, (_, i) => ({
     address: '0x1e24e7109c088fc802ff222dd76a446ba82e0e07',
@@ -40,7 +37,7 @@ export default function HomeScreen() {
   }));
 
   const handleViewPool = (poolAddress: string) => {
-    navigate(`/doppler/${poolAddress}`);
+    navigate(`/doppler-v2/${poolAddress}`);
   };
 
   return (
@@ -64,7 +61,7 @@ export default function HomeScreen() {
         </div>
         <label className='bg-[#1A1A1A] rounded-lg px-4 py-2 text-sm flex items-center gap-2 cursor-pointer border border-gray-700'>
           <input type='checkbox' className='w-4 h-4 rounded border-gray-600 bg-transparent' />
-          <span>Sort by Mcap</span>
+          <span>Sort by market cap</span>
         </label>
       </div>
       {/* Token Grid */}

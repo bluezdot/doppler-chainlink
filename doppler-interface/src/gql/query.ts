@@ -13,6 +13,7 @@ export const GET_POOLS_QUERY = `
           name
           symbol
           image
+          creatorAddress
         }
         quoteToken {
           address
@@ -57,11 +58,14 @@ export const GET_POOL_QUERY = `
       createdAt
       asset {
         marketCapUsd
+        numTokensToSell
       }
       baseToken {
         address
         name
         symbol
+        image
+        creatorAddress
       }
       quoteToken {
         address

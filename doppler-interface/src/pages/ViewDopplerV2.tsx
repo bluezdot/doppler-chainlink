@@ -20,9 +20,10 @@ import { getPool } from '@/gql';
 import TopHoldersCard from '@/pages/details/TopHoldersCard';
 import TradingHistoryCard from '@/pages/details/TradingHistoryCard';
 import BondingCurveCard from '@/pages/details/BondingCurveCard';
-import TradingChartCard from "@/pages/details/TradingChartCard";
-import TokenInfoCard from "@/pages/details/TokenInfoCard";
-import TradingInterfaceCard from "@/pages/details/TradingInterfaceCard";
+import TradingChartCard from '@/pages/details/TradingChartCard';
+import TokenInfoCard from '@/pages/details/TokenInfoCard';
+import TradingInterfaceCard from '@/pages/details/TradingInterfaceCard';
+import PriceChallengeCard from '@/pages/details/PriceChallengeCard';
 
 function ViewDopplerV2() {
   const { id } = useParams();
@@ -193,13 +194,6 @@ function ViewDopplerV2() {
 
   return (
     <div className='mx-auto p-6 space-y-6 text-lg'>
-      <header className='flex items-center flex-start'>
-        <TokenName name={quoteTokenBalance?.name ?? ''} symbol={quoteTokenBalance?.symbol ?? ''} />{' '}
-        / <TokenName name={baseTokenBalance?.name ?? ''} symbol={baseTokenBalance?.symbol ?? ''} />
-      </header>
-
-      <Separator />
-
       {isLoading ? (
         <div className='grid grid-cols-10 gap-6'>
           <div className='col-span-7 space-y-6'>
@@ -216,13 +210,14 @@ function ViewDopplerV2() {
       ) : (
         <div className='grid grid-cols-10 gap-6'>
           <div className='col-span-7 space-y-6'>
-            <TokenInfoCard className='p-6' />
+            <TokenInfoCard poolInfo={pool} className='p-6' />
             <TradingChartCard className='p-6' />
             <TradingHistoryCard className='p-6' />
           </div>
           <div className='col-span-3 space-y-6'>
             <TradingInterfaceCard className='p-6' />
-            <BondingCurveCard className='p-6' />
+            {/*<BondingCurveCard className='p-6' />*/}
+            <PriceChallengeCard className='p-6' />
             <TopHoldersCard className='p-6' />
           </div>
         </div>
