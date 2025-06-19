@@ -31,7 +31,7 @@ export default function TradingChartCard() {
   const candlesticks = generateCandlestickData();
 
   return (
-    <div className='bg-gray-900 rounded-lg p-6'>
+    <div className='p-6' style={{backgroundColor: "#1A1A1A", borderRadius: "12px"}}>
       {/* Chart Header */}
       <div className='flex items-center justify-between mb-4'>
         <div className='flex items-center gap-4 text-sm'>
@@ -53,7 +53,7 @@ export default function TradingChartCard() {
       </div>
 
       {/* Chart Container */}
-      <div className='relative h-80 bg-gray-800 rounded'>
+      <div className='relative h-80' style={{backgroundColor: "#1A1A1A", borderRadius: "12px"}}>
         {/* Price Scale */}
         <div className='absolute right-2 top-0 h-full flex flex-col justify-between py-4 text-xs text-gray-400'>
           <span>0.0154</span>

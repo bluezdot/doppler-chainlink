@@ -3,7 +3,7 @@ export default function BondingCurveCard() {
   const progressPercentage = 25;
 
   return (
-    <div className='bg-gray-900 rounded-lg p-6 max-w-2xl mx-auto'>
+    <div className='p-6'  style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
       {/* Title */}
       <h2 className='text-white text-3xl font-bold mb-6'>Bonding Curve Progress</h2>
 

@@ -5,6 +5,7 @@ import twitterIcon from '../assets/icons/twitter.svg';
 import telegramIcon from '../assets/icons/telegram.svg';
 import { useNavigate } from 'react-router-dom';
 import { formatBigIntToUsd } from '@/utils/utils';
+import { useMemo } from 'react';
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -17,6 +18,10 @@ export default function HomeScreen() {
     queryKey: ['pools'],
     queryFn: getPools
   });
+
+  useMemo(() => {
+    console.log('pools', pools);
+  }, [pools]);
 
   const getProgressPercent = (numerator: bigint, denominator: string) => {
     if (!denominator || denominator === '0') return 0;

@@ -31,10 +31,7 @@ export default function PriceChallengeCard() {
   };
 
   return (
-    <div
-      className='relative bg-[#1A1A1A] rounded-xl p-6'
-      style={{ width: '555px', height: '393px' }}
-    >
+    <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
       {/* Header */}
       <div className='flex items-center justify-between'>
         {/* Title */}

@@ -32,7 +32,7 @@ export default function TradingInterfaceCard() {
   };
 
   return (
-    <div className='bg-gray-900 rounded-lg p-6 max-w-md mx-auto'>
+    <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
       {/* Buy/Sell Toggle */}
       <div className='flex mb-6'>
         <button
@@ -74,6 +74,7 @@ export default function TradingInterfaceCard() {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className='w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors'
+            style={{backgroundColor: "#242424"}}
           />
           <div className='absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2'>
             <span className='text-gray-300 font-medium'>SOL</span>
@@ -90,7 +91,8 @@ export default function TradingInterfaceCard() {
           <button
             key={quickAmount}
             onClick={() => handleQuickAmount(quickAmount)}
-            className='px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm rounded-lg transition-colors border border-gray-700'
+            className='flex-1 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm rounded-lg transition-colors border border-gray-700'
+            style={{backgroundColor: "#1A1A1A"}}
           >
             {quickAmount}
           </button>

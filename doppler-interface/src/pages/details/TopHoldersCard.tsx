@@ -22,7 +22,7 @@ export default function TopHoldersCard() {
   ];
 
   return (
-    <div className='bg-gray-900 rounded-lg p-6 w-full'>
+    <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
       {/* Title */}
       <h2 className='text-white text-2xl font-bold mb-6'>Top holders</h2>
 

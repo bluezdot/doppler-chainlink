@@ -216,8 +216,8 @@ function ViewDopplerV2() {
           </div>
           <div className='col-span-3 space-y-6'>
             <TradingInterfaceCard className='p-6' />
-            {/*<BondingCurveCard className='p-6' />*/}
-            <PriceChallengeCard className='p-6' />
+            <BondingCurveCard className='p-6' />
+            {/*<PriceChallengeCard className='p-6' />*/}
             <TopHoldersCard className='p-6' />
           </div>
         </div>

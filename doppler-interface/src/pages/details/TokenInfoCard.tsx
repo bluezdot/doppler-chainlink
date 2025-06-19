@@ -71,120 +71,125 @@ export default function TokenInfoCard(props: Props) {
   };
 
   return (
-    <div className='bg-gray-900 rounded-lg p-6'>
-      {/* Header Section */}
-      <div className='flex items-start gap-4 mb-6'>
-        {/* Token Logo */}
-        <div className='w-30 h-30 rounded-lg overflow-hidden flex-shrink-0'>
-          <img
-            // src={poolInfo?.baseToken?.image || defaultPoolInfo.baseToken.image}
-            src={defaultPoolInfo.baseToken.image}
-            alt={poolInfo?.baseToken?.name || defaultPoolInfo.baseToken.name}
-            className='w-full h-full object-cover'
-          />
-        </div>
+      <div className="p-6" style={{backgroundColor: "#1A1A1A", borderRadius: "12px"}}>
+        {/* Header Section */}
+        <div className='flex items-start gap-4 mb-6'>
+          {/* Token Logo */}
+          <div className='w-30 h-30 rounded-lg overflow-hidden flex-shrink-0'>
+            <img
+                // src={poolInfo?.baseToken?.image || defaultPoolInfo.baseToken.image}
+                src={defaultPoolInfo.baseToken.image}
+                alt={poolInfo?.baseToken?.name || defaultPoolInfo.baseToken.name}
+                className='w-full h-full object-cover'
+            />
+          </div>
 
-        {/* Token Name and Social Icons */}
-        <div className='flex-1'>
-          <h1 className='text-white text-4xl font-bold mb-3'>
-            {poolInfo?.baseToken?.name || defaultPoolInfo.baseToken.name}
-          </h1>
+          {/* Token Name and Social Icons */}
+          <div className='flex-1'>
+            <h1 className='text-white text-4xl font-bold mb-3'>
+              {poolInfo?.baseToken?.name || defaultPoolInfo.baseToken.name}
+            </h1>
 
-          {/* Social Icons */}
-          <div className='flex items-center gap-3'>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
-              <WebsiteLogo className='w-4 h-4 text-gray-400' />
-            </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
-              <XLogo className='w-4 h-4 text-gray-400' />
-            </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
-              <FacebookLogo className='w-4 h-4 text-gray-400' />
-            </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
-              <DiscordLogo className='w-4 h-4 text-gray-400' />
-            </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
-              <TelegramLogo className='w-4 h-4 text-gray-400' />
-            </button>
+            {/* Social Icons */}
+            <div className='flex items-center gap-3'>
+              <button
+                  className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+                <WebsiteLogo className='w-4 h-4 text-gray-400'/>
+              </button>
+              <button
+                  className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+                <XLogo className='w-4 h-4 text-gray-400'/>
+              </button>
+              <button
+                  className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+                <FacebookLogo className='w-4 h-4 text-gray-400'/>
+              </button>
+              <button
+                  className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+                <DiscordLogo className='w-4 h-4 text-gray-400'/>
+              </button>
+              <button
+                  className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+                <TelegramLogo className='w-4 h-4 text-gray-400'/>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Token Details Grid */}
-      <div className='grid grid-cols-2 lg:grid-cols-3 gap-6'>
-        {/* Contract Address */}
-        <div>
-          <div className='flex items-center gap-2 mb-1'>
+        {/* Token Details Grid */}
+        <div className='grid grid-cols-2 lg:grid-cols-3 gap-6'>
+          {/* Contract Address */}
+          <div>
+            <div className='flex items-center gap-2 mb-1'>
             <span className='text-blue-400 text-sm'>
               {shortenAddress(poolInfo?.address || defaultPoolInfo.address)}
             </span>
-            <button
-              onClick={() => handleCopyAddress(poolInfo?.address || defaultPoolInfo.address)}
-              className='text-gray-400 hover:text-white transition-colors'
-            >
-              <Copy className='w-4 h-4' />
-            </button>
+              <button
+                  onClick={() => handleCopyAddress(poolInfo?.address || defaultPoolInfo.address)}
+                  className='text-gray-400 hover:text-white transition-colors'
+              >
+                <Copy className='w-4 h-4'/>
+              </button>
+            </div>
+            <div className='text-gray-500 text-xs'>Contract</div>
           </div>
-          <div className='text-gray-500 text-xs'>Contract</div>
-        </div>
 
-        {/* Price */}
-        <div>
-          <div className='text-white text-lg font-semibold mb-1'>
-            {poolInfo?.price && poolInfo?.quoteToken?.symbol
-              ? `${formatBigIntToUsd(poolInfo?.price)} ${poolInfo?.quoteToken?.symbol}`
-              : `${formatBigIntToUsd(defaultPoolInfo?.price)} ${defaultPoolInfo?.quoteToken?.symbol}`}
+          {/* Price */}
+          <div>
+            <div className='text-white text-lg font-semibold mb-1'>
+              {poolInfo?.price && poolInfo?.quoteToken?.symbol
+                  ? `${formatBigIntToUsd(poolInfo?.price)} ${poolInfo?.quoteToken?.symbol}`
+                  : `${formatBigIntToUsd(defaultPoolInfo?.price)} ${defaultPoolInfo?.quoteToken?.symbol}`}
+            </div>
+            <div className='text-gray-500 text-xs'>Price</div>
           </div>
-          <div className='text-gray-500 text-xs'>Price</div>
-        </div>
 
-        {/* Market Cap */}
-        <div>
-          <div className='text-white text-lg font-semibold mb-1'>
-            {poolInfo?.asset?.marketCapUsd || defaultPoolInfo.asset.marketCapUsd}
+          {/* Market Cap */}
+          <div>
+            <div className='text-white text-lg font-semibold mb-1'>
+              {poolInfo?.asset?.marketCapUsd || defaultPoolInfo.asset.marketCapUsd}
+            </div>
+            <div className='text-gray-500 text-xs'>Market Cap</div>
           </div>
-          <div className='text-gray-500 text-xs'>Market Cap</div>
-        </div>
 
-        {/* Created By */}
-        <div>
-          <div className='flex items-center gap-2 mb-1'>
+          {/* Created By */}
+          <div>
+            <div className='flex items-center gap-2 mb-1'>
             <span className='text-blue-400 text-sm'>
               {shortenAddress(
-                poolInfo?.baseToken?.creatorAddress || defaultPoolInfo.baseToken.creatorAddress
+                  poolInfo?.baseToken?.creatorAddress || defaultPoolInfo.baseToken.creatorAddress
               )}
             </span>
-            <button
-              onClick={() =>
-                handleCopyAddress(
-                  poolInfo?.baseToken?.creatorAddress || defaultPoolInfo.baseToken.creatorAddress
-                )
-              }
-              className='text-gray-400 hover:text-white transition-colors'
-            >
-              <Copy className='w-4 h-4' />
-            </button>
+              <button
+                  onClick={() =>
+                      handleCopyAddress(
+                          poolInfo?.baseToken?.creatorAddress || defaultPoolInfo.baseToken.creatorAddress
+                      )
+                  }
+                  className='text-gray-400 hover:text-white transition-colors'
+              >
+                <Copy className='w-4 h-4'/>
+              </button>
+            </div>
+            <div className='text-gray-500 text-xs'>Created by</div>
           </div>
-          <div className='text-gray-500 text-xs'>Created by</div>
-        </div>
 
-        {/* Virtual Liquidity */}
-        <div>
-          <div className='text-white text-lg font-semibold mb-1'>
-            {`${formatBigIntToUsd(poolInfo?.liquidity || defaultPoolInfo.liquidity)} $`}
+          {/* Virtual Liquidity */}
+          <div>
+            <div className='text-white text-lg font-semibold mb-1'>
+              {`${formatBigIntToUsd(poolInfo?.liquidity || defaultPoolInfo.liquidity)} $`}
+            </div>
+            <div className='text-gray-500 text-xs'>Virtual Liquidity</div>
           </div>
-          <div className='text-gray-500 text-xs'>Virtual Liquidity</div>
-        </div>
 
-        {/* 24h Volume */}
-        <div>
-          <div className='text-white text-lg font-semibold mb-1'>
-            {poolInfo?.dailyVolume?.volumeUsd || defaultPoolInfo.dailyVolume.volumeUsd}
+          {/* 24h Volume */}
+          <div>
+            <div className='text-white text-lg font-semibold mb-1'>
+              {poolInfo?.dailyVolume?.volumeUsd || defaultPoolInfo.dailyVolume.volumeUsd}
+            </div>
+            <div className='text-gray-500 text-xs'>24h Volume</div>
           </div>
-          <div className='text-gray-500 text-xs'>24h Volume</div>
         </div>
       </div>
-    </div>
   );
 }
