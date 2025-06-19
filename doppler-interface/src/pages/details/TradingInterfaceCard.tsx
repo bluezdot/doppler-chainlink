@@ -1,7 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Settings, Menu } from 'lucide-react';
+import { Settings } from 'lucide-react';
+
+// todo: balance
+// todo: handle connect wallet
+
+interface Props {
+  balance: bigint;
+  token: string;
+}
 
 export default function TradingInterfaceCard() {
   const [activeTab, setActiveTab] = useState<'buy' | 'sell'>('buy');
@@ -34,27 +42,36 @@ export default function TradingInterfaceCard() {
   return (
     <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
       {/* Buy/Sell Toggle */}
-      <div className='flex mb-6'>
-        <button
-          onClick={() => setActiveTab('buy')}
-          className={`flex-1 py-3 px-6 rounded-l-lg font-semibold transition-colors ${
-            activeTab === 'buy'
-              ? 'bg-green-500 text-black'
-              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-          }`}
-        >
-          Buy
-        </button>
-        <button
-          onClick={() => setActiveTab('sell')}
-          className={`flex-1 py-3 px-6 rounded-r-lg font-semibold transition-colors ${
-            activeTab === 'sell'
-              ? 'bg-green-500 text-black'
-              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-          }`}
-        >
-          Sell
-        </button>
+      <div className='relative mb-6 rounded-lg p-1' style={{ backgroundColor: '#242424' }}>
+        <div
+          className='absolute top-1 bottom-1 rounded-md transition-all duration-300 ease-in-out transform'
+          style={{
+            backgroundColor: activeTab === 'buy' ? '#47E17B' : '#EF4444',
+            width: 'calc(50% - 4px)',
+            left: activeTab === 'buy' ? '4px' : 'calc(50% + 0px)',
+            transform: activeTab === 'buy' ? 'translateX(0)' : 'translateX(0)'
+          }}
+        />
+
+        {/* Buttons */}
+        <div className='relative flex'>
+          <button
+            onClick={() => setActiveTab('buy')}
+            className={`flex-1 py-3 px-6 rounded-md font-semibold transition-all duration-300 relative z-10 transform hover:scale-105 active:scale-95 ${
+              activeTab === 'buy' ? 'text-black' : 'text-white hover:text-gray-300'
+            }`}
+          >
+            Buy
+          </button>
+          <button
+            onClick={() => setActiveTab('sell')}
+            className={`flex-1 py-3 px-6 rounded-md font-semibold transition-all duration-300 relative z-10 transform hover:scale-105 active:scale-95 ${
+              activeTab === 'sell' ? 'text-black' : 'text-white hover:text-gray-300'
+            }`}
+          >
+            Sell
+          </button>
+        </div>
       </div>
 
       {/* Balance Display */}
@@ -74,13 +91,13 @@ export default function TradingInterfaceCard() {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className='w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors'
-            style={{backgroundColor: "#242424"}}
+            style={{ backgroundColor: '#242424' }}
           />
           <div className='absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2'>
             <span className='text-gray-300 font-medium'>SOL</span>
-            <button className='text-gray-400 hover:text-white transition-colors'>
-              <Menu className='w-4 h-4' />
-            </button>
+            <div>
+              <img src={'/images/SolanaLogo.png'} alt={'Token logo'} className='w-full h-full' />
+            </div>
           </div>
         </div>
       </div>
@@ -92,7 +109,7 @@ export default function TradingInterfaceCard() {
             key={quickAmount}
             onClick={() => handleQuickAmount(quickAmount)}
             className='flex-1 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm rounded-lg transition-colors border border-gray-700'
-            style={{backgroundColor: "#1A1A1A"}}
+            style={{ backgroundColor: '#1A1A1A' }}
           >
             {quickAmount}
           </button>
@@ -110,7 +127,7 @@ export default function TradingInterfaceCard() {
       {/* Connect Wallet Button */}
       <button
         onClick={handleConnectWallet}
-        className='w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 rounded-lg transition-colors'
+        className='w-full bg-violet-500 hover:bg-violet-600 text-black font-semibold py-4 rounded-lg transition-colors'
       >
         {isWalletConnected ? 'Trade' : 'Connect Wallet'}
       </button>

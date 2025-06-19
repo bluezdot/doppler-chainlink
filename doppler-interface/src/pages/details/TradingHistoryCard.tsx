@@ -4,6 +4,11 @@ interface TradeEntry {
   amount: string;
   time: string;
   transaction: string;
+  // todo: symbol
+}
+
+interface Props {
+  trades: TradeEntry[];
 }
 
 export default function TradingHistoryCard() {

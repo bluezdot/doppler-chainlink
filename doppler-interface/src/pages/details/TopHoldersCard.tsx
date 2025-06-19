@@ -6,6 +6,10 @@ interface Holder {
   percentage: string;
 }
 
+interface Props {
+  topHolders: Holder[];
+}
+
 export default function TopHoldersCard() {
   // Sample holders data
   const holders: Holder[] = [

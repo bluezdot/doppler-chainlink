@@ -1,9 +1,15 @@
+interface Props {
+  progress: number; // in %
+  availableToken: bigint;
+  currentToken: bigint;
+  totalSaleToken: bigint;
+}
+
 export default function BondingCurveCard() {
-  // Sample progress value (you can make this dynamic)
   const progressPercentage = 25;
 
   return (
-    <div className='p-6'  style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
+    <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
       {/* Title */}
       <h2 className='text-white text-3xl font-bold mb-6'>Bonding Curve Progress</h2>
 
@@ -11,7 +17,7 @@ export default function BondingCurveCard() {
       <div className='mb-6'>
         <div className='w-full bg-gray-600 rounded-full h-3'>
           <div
-            className='bg-purple-500 h-3 rounded-full transition-all duration-300 ease-in-out'
+            className='bg-violet-500 h-3 rounded-full transition-all duration-300 ease-in-out'
             style={{ width: `${progressPercentage}%` }}
           ></div>
         </div>
