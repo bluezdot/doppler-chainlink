@@ -44,10 +44,11 @@ export default function TradingInterfaceCard() {
       {/* Buy/Sell Toggle */}
       <div className='relative mb-6 rounded-lg p-1' style={{ backgroundColor: '#242424' }}>
         <div
-          className='absolute top-1 bottom-1 rounded-md transition-all duration-300 ease-in-out transform'
+          className='absolute top-2 bottom-1 rounded-md transition-all duration-300 ease-in-out transform'
           style={{
             backgroundColor: activeTab === 'buy' ? '#47E17B' : '#EF4444',
             width: 'calc(50% - 4px)',
+            height: '75%',
             left: activeTab === 'buy' ? '4px' : 'calc(50% + 0px)',
             transform: activeTab === 'buy' ? 'translateX(0)' : 'translateX(0)'
           }}
