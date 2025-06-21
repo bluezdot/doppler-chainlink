@@ -87,6 +87,9 @@ function ViewDopplerV2() {
 
   const tokenInfoRef = useRef<HTMLDivElement>(null);
   const tradingInterfaceRef = useRef<HTMLDivElement>(null);
+  const tradingChartRef = useRef<HTMLDivElement>(null);
+  const priceChallengeRef = useRef<HTMLDivElement>(null);
+  const bondingCurveRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (tradingInterfaceRef.current && tokenInfoRef.current) {
@@ -94,6 +97,18 @@ function ViewDopplerV2() {
       tokenInfoRef.current.style.height = `${height}px`;
     }
   }, [isLoading, swapState]);
+
+  useEffect(() => {
+    if (tradingChartRef.current && priceChallengeRef.current) {
+      const height = tradingChartRef.current.offsetHeight;
+      priceChallengeRef.current.style.height = `${height}px`;
+    }
+
+    if (tradingChartRef.current && bondingCurveRef.current) {
+      const height = tradingChartRef.current.offsetHeight;
+      bondingCurveRef.current.style.height = `${height}px`;
+    }
+  }, [isLoading]);
 
   // todo
   const handleSwap = async () => {};
@@ -228,7 +243,9 @@ function ViewDopplerV2() {
             <div ref={tokenInfoRef}>
               <TokenInfoCard poolInfo={pool} className='h-full' />
             </div>
-            <TradingChartCard className='p-6' />
+            <div ref={tradingChartRef}>
+              <TradingChartCard className='p-6 h-full' />
+            </div>
             <TradingHistoryCard symbol={pool?.baseToken?.symbol} className='p-6' />
           </div>
           <div className='col-span-4 space-y-6'>
@@ -236,9 +253,13 @@ function ViewDopplerV2() {
               <TradingInterfaceCard className='h-full' />
             </div>
             {isPCPhase ? (
-              <PriceChallengeCard className='p-6' onSwitchPhase={switchPhase} />
+              <div ref={priceChallengeRef}>
+                <PriceChallengeCard className='p-6 h-full' onSwitchPhase={switchPhase} />
+              </div>
             ) : (
-              <BondingCurveCard className='p-6' onSwitchPhase={switchPhase} />
+              <div ref={bondingCurveRef}>
+                <BondingCurveCard className='p-6 h-full' onSwitchPhase={switchPhase} />
+              </div>
             )}
             <TopHoldersCard currentTotalSales={pool.liquidity} className='p-6' />
           </div>
