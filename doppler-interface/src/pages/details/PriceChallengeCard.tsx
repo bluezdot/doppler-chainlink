@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from 'react';
 
-export default function PriceChallengeCard() {
+interface Props {
+    onSwitchPhase: () => void;
+}
+
+export default function PriceChallengeCard(props: Props) {
   const [timeLeft, setTimeLeft] = useState({ minutes: 29, seconds: 12 });
   const [currentPrice] = useState('$0.0424232');
   const [initialPrice] = useState('$2,205.80');
@@ -35,7 +39,7 @@ export default function PriceChallengeCard() {
       {/* Header */}
       <div className='flex items-center justify-between'>
         {/* Title */}
-        <h2 className='text-white text-3xl font-ppfd tracking-wider mb-6'>Price challenge</h2>
+        <h2 className='text-white text-3xl font-ppfd tracking-wider mb-6' onClick={props.onSwitchPhase}>Price challenge</h2>
 
         {/* Countdown Timer */}
         <div className='flex items-center gap-2'>

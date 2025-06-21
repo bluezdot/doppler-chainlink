@@ -1,17 +1,18 @@
 interface Props {
-  progress: number; // in %
-  availableToken: bigint;
-  currentToken: bigint;
-  totalSaleToken: bigint;
+    //   progress: number; // in %
+    //   availableToken: bigint;
+    //   currentToken: bigint;
+    //   totalSaleToken: bigint;
+    onSwitchPhase: () => void;
 }
 
-export default function BondingCurveCard() {
+export default function BondingCurveCard(props: Props) {
   const progressPercentage = 25;
 
   return (
     <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
       {/* Title */}
-      <h2 className='text-white text-3xl font-ppfd tracking-wider mb-6'>Bonding Curve Progress</h2>
+      <h2 className='text-white text-3xl font-ppfd tracking-wider mb-6' onClick={props.onSwitchPhase}>Bonding Curve Progress</h2>
 
       {/* Progress Bar */}
       <div className='mb-6'>

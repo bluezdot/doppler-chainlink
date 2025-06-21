@@ -1,5 +1,5 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useAccount, useBalance, usePublicClient, useWalletClient } from 'wagmi';
 import { Address, formatEther, Hex, parseEther, zeroAddress } from 'viem';
 import {
@@ -34,6 +34,11 @@ function ViewDopplerV2() {
   const drift = getDrift(walletClient);
   const quoter = new ReadQuoter(quoterV2, zeroAddress, drift);
   const chainId = 84532; // todo
+  const [isPCPhase, setIsPCPhase] = useState(false);
+
+  const switchPhase = () => {
+    setIsPCPhase(!isPCPhase);
+  };
 
   // Validation and data fetching
   const isValidAddress = id?.match(/^0x[a-fA-F0-9]{40}$/);
@@ -79,6 +84,16 @@ function ViewDopplerV2() {
     assetAmount: '',
     activeField: 'numeraire' as 'numeraire' | 'asset' // todo: create a toggle button to select buy/sell -> isSellingNumeraire
   });
+
+  const tokenInfoRef = useRef<HTMLDivElement>(null);
+  const tradingInterfaceRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (tradingInterfaceRef.current && tokenInfoRef.current) {
+      const height = tradingInterfaceRef.current.offsetHeight;
+      tokenInfoRef.current.style.height = `${height}px`;
+    }
+  }, [isLoading, swapState]);
 
   // todo
   const handleSwap = async () => {};
@@ -210,14 +225,21 @@ function ViewDopplerV2() {
       ) : (
         <div className='grid grid-cols-10 gap-6'>
           <div className='col-span-6 space-y-6'>
-            <TokenInfoCard poolInfo={pool} className='p-6' />
+            <div ref={tokenInfoRef}>
+              <TokenInfoCard poolInfo={pool} className='h-full' />
+            </div>
             <TradingChartCard className='p-6' />
             <TradingHistoryCard symbol={pool?.baseToken?.symbol} className='p-6' />
           </div>
           <div className='col-span-4 space-y-6'>
-            <TradingInterfaceCard className='p-6' />
-            {/*<BondingCurveCard className='p-6' />*/}
-            <PriceChallengeCard className='p-6' />
+            <div ref={tradingInterfaceRef}>
+              <TradingInterfaceCard className='h-full' />
+            </div>
+            {isPCPhase ? (
+              <PriceChallengeCard className='p-6' onSwitchPhase={switchPhase} />
+            ) : (
+              <BondingCurveCard className='p-6' onSwitchPhase={switchPhase} />
+            )}
             <TopHoldersCard currentTotalSales={pool.liquidity} className='p-6' />
           </div>
         </div>
