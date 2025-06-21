@@ -1,9 +1,11 @@
+import { Address } from 'viem';
+
 export interface Pool {
   address: string;
   chainId: bigint;
   tick: number;
   sqrtPrice: bigint;
-  liquidity: bigint;
+  liquidity: string;
   createdAt: bigint;
   asset: Asset;
   baseToken: BaseToken;
@@ -55,5 +57,25 @@ export interface QuoteToken {
 }
 
 // ---
+export type Trades = Trade[];
 
-export interface Positions {}
+export interface Trade {
+  amountIn: string;
+  amountOut: string;
+  txHash: string;
+  timestamp: string;
+  type: 'buy' | 'sell';
+  usdPrice: string;
+  user: string;
+  asset: {
+    address: string;
+  };
+}
+
+// ---
+export interface Holder {
+  balance: string;
+  user: {
+    address: Address;
+  };
+}

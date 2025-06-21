@@ -212,13 +212,13 @@ function ViewDopplerV2() {
           <div className='col-span-7 space-y-6'>
             <TokenInfoCard poolInfo={pool} className='p-6' />
             <TradingChartCard className='p-6' />
-            <TradingHistoryCard className='p-6' />
+            <TradingHistoryCard symbol={pool?.baseToken?.symbol} className='p-6' />
           </div>
           <div className='col-span-3 space-y-6'>
             <TradingInterfaceCard className='p-6' />
             <BondingCurveCard className='p-6' />
             {/*<PriceChallengeCard className='p-6' />*/}
-            <TopHoldersCard className='p-6' />
+            <TopHoldersCard currentTotalSales={pool.liquidity} className='p-6' />
           </div>
         </div>
       )}

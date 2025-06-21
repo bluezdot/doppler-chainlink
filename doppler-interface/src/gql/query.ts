@@ -94,3 +94,43 @@ export const GET_POOL_QUERY = `
     }
   }
 `;
+
+export const GET_HISTORIES_QUERY = `
+    query SwapHistoryByPool($address: String!, $chainId: BigInt!) {
+      swaps(
+        limit: 10
+        where: {pool: $address, chainId: $chainId}
+      ) {
+        items {
+          amountIn
+          amountOut
+          txHash
+          timestamp
+          type
+          usdPrice
+          user
+          asset {
+            address
+          }
+        }
+      }
+    }
+`;
+
+export const GET_TOP_HOLDERS = `
+    query GetTopHoldersByAssetID($address: String!, $chainId: BigInt!) {
+      userAssets(
+        where: {assetId: $address, chainId: $chainId}
+        limit: 10
+        orderBy: "balance"
+        orderDirection: "desc"
+      ) {
+        items {
+          balance
+          user {
+            address
+          }
+        }
+      }
+    }
+`;

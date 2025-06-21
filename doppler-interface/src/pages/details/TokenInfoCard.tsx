@@ -1,8 +1,8 @@
 'use client';
 
-import { Copy, Globe, MessageSquare, Send } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import { Pool } from '@/gql';
-import { formatBigIntToUsd } from '@/utils/utils';
+import { formatBigIntToUsd, formatPrice, shortenAddress } from '@/utils/utils';
 import {
   DiscordLogo,
   FacebookLogo,
@@ -65,10 +65,35 @@ export default function TokenInfoCard(props: Props) {
     navigator.clipboard.writeText(address);
   };
 
-  const shortenAddress = (address: string) => {
-    if (!address || address.length < 10) return address;
-    return `${address.slice(0, 5)}...${address.slice(-5)}`;
-  };
+  function handleDisplayNumber(numberStr: string, symbol?: string) {
+    const match = numberStr.match(/^([^()]+)\((\d)\)(\d+)$/);
+
+    if (!match)
+      return symbol ? (
+        <>
+          {numberStr} {symbol}
+        </>
+      ) : (
+        <>$ {numberStr}</>
+      );
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_, prefix, subDigit, suffix] = match;
+
+    return symbol ? (
+      <>
+        {prefix}
+        <span className='text-xs align-bottom relative -translate-y-1'>{subDigit}</span>
+        {suffix} {symbol}
+      </>
+    ) : (
+      <>
+        $ {prefix}
+        <span className='text-xs align-bottom relative -translate-y-1'>{subDigit}</span>
+        {suffix}
+      </>
+    );
+  }
 
   return (
     <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
@@ -92,19 +117,19 @@ export default function TokenInfoCard(props: Props) {
 
           {/* Social Icons */}
           <div className='flex items-center gap-3'>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+            <button className='w-8 h-8 flex items-center justify-center hover:bg-gray-600 transition-colors'>
               <WebsiteLogo className='w-4 h-4 text-gray-400' />
             </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+            <button className='w-8 h-8 flex items-center justify-center hover:bg-gray-600 transition-colors'>
               <XLogo className='w-4 h-4 text-gray-400' />
             </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+            <button className='w-8 h-8 flex items-center justify-center hover:bg-gray-600 transition-colors'>
               <FacebookLogo className='w-4 h-4 text-gray-400' />
             </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+            <button className='w-8 h-8 flex items-center justify-center hover:bg-gray-600 transition-colors'>
               <DiscordLogo className='w-4 h-4 text-gray-400' />
             </button>
-            <button className='w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors'>
+            <button className='w-8 h-8 flex items-center justify-center hover:bg-gray-600 transition-colors'>
               <TelegramLogo className='w-4 h-4 text-gray-400' />
             </button>
           </div>
@@ -116,7 +141,7 @@ export default function TokenInfoCard(props: Props) {
         {/* Contract Address */}
         <div>
           <div className='flex items-center gap-2 mb-1'>
-            <span className='text-blue-400 text-sm'>
+            <span className='text-white text-sm'>
               {shortenAddress(poolInfo?.address || defaultPoolInfo.address)}
             </span>
             <button
@@ -133,8 +158,14 @@ export default function TokenInfoCard(props: Props) {
         <div>
           <div className='text-white text-lg font-semibold mb-1'>
             {poolInfo?.price && poolInfo?.quoteToken?.symbol
-              ? `${formatBigIntToUsd(poolInfo?.price)} ${poolInfo?.quoteToken?.symbol}`
-              : `${formatBigIntToUsd(defaultPoolInfo?.price)} ${defaultPoolInfo?.quoteToken?.symbol}`}
+              ? handleDisplayNumber(
+                  formatPrice(formatBigIntToUsd(poolInfo?.price)),
+                  poolInfo?.quoteToken?.symbol
+                )
+              : handleDisplayNumber(
+                  formatPrice(formatBigIntToUsd(defaultPoolInfo?.price)),
+                  defaultPoolInfo?.quoteToken?.symbol
+                )}
           </div>
           <div className='text-gray-500 text-xs'>Price</div>
         </div>
@@ -142,7 +173,13 @@ export default function TokenInfoCard(props: Props) {
         {/* Market Cap */}
         <div>
           <div className='text-white text-lg font-semibold mb-1'>
-            {poolInfo?.asset?.marketCapUsd || defaultPoolInfo.asset.marketCapUsd}
+            {handleDisplayNumber(
+              formatPrice(
+                formatBigIntToUsd(
+                  poolInfo?.asset?.marketCapUsd || defaultPoolInfo.asset.marketCapUsd
+                )
+              )
+            )}
           </div>
           <div className='text-gray-500 text-xs'>Market Cap</div>
         </div>
@@ -150,7 +187,7 @@ export default function TokenInfoCard(props: Props) {
         {/* Created By */}
         <div>
           <div className='flex items-center gap-2 mb-1'>
-            <span className='text-blue-400 text-sm'>
+            <span className='text-[#6750CC] text-sm'>
               {shortenAddress(
                 poolInfo?.baseToken?.creatorAddress || defaultPoolInfo.baseToken.creatorAddress
               )}
@@ -172,7 +209,9 @@ export default function TokenInfoCard(props: Props) {
         {/* Virtual Liquidity */}
         <div>
           <div className='text-white text-lg font-semibold mb-1'>
-            {`${formatBigIntToUsd(poolInfo?.liquidity || defaultPoolInfo.liquidity)} $`}
+            {handleDisplayNumber(
+              formatPrice(formatBigIntToUsd(poolInfo?.liquidity || defaultPoolInfo.liquidity))
+            )}
           </div>
           <div className='text-gray-500 text-xs'>Virtual Liquidity</div>
         </div>
@@ -180,7 +219,13 @@ export default function TokenInfoCard(props: Props) {
         {/* 24h Volume */}
         <div>
           <div className='text-white text-lg font-semibold mb-1'>
-            {poolInfo?.dailyVolume?.volumeUsd || defaultPoolInfo.dailyVolume.volumeUsd}
+            {handleDisplayNumber(
+              formatPrice(
+                formatBigIntToUsd(
+                  poolInfo?.dailyVolume?.volumeUsd || defaultPoolInfo.dailyVolume.volumeUsd
+                )
+              )
+            )}
           </div>
           <div className='text-gray-500 text-xs'>24h Volume</div>
         </div>

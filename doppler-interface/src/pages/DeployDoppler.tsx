@@ -109,7 +109,7 @@ function DeployDoppler() {
         tokenConfig: {
           name: tokenName,
           symbol: tokenSymbol,
-          tokenURI: `https://pure.xyz/token/${tokenName}`
+          tokenURI: `https://pure.xyz/token/${tokenName}` // todo: update uri
         },
         vestingConfig: 'default'
       };

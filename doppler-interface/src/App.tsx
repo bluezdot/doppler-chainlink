@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useAccount, useConnect, useBalance, useSwitchChain, useDisconnect } from 'wagmi';
 import DeployDoppler from './pages/DeployDoppler';
-import ViewDoppler from './pages/ViewDoppler';
 import ViewDopplerV2 from './pages/ViewDopplerV2';
 import HomeScreen from './pages/HomeScreen';
 import TokenDetail from './pages/TokenDetail';
@@ -38,7 +37,10 @@ function App() {
       <div className='min-h-screen bg-[#0F0F0F] text-white'>
         <header className='flex justify-between items-center p-6'>
           <div className='flex items-center gap-2'>
-            <span className='w-4 h-4 rounded-full bg-[#7F4DFA]'></span>
+            <img
+              src={'/images/SafeLynx.png'}
+              className='w-16 h-16'
+            ></img>
             <span className='text-lg font-bold tracking-wider'>LEVEL</span>
           </div>
           <div className='flex gap-3'>
@@ -96,7 +98,6 @@ function App() {
             <Route path='/' element={<HomeScreen />} />
             <Route path='/deploy' element={<DeployDoppler />} />
             <Route path='/doppler/detail' element={<TokenDetail />} />
-            <Route path='/doppler/:id' element={<ViewDoppler />} />
             <Route path='/doppler-v2/:id' element={<ViewDopplerV2 />} />
           </Routes>
         </main>

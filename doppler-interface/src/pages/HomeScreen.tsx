@@ -4,8 +4,10 @@ import websiteIcon from '../assets/icons/website.svg';
 import twitterIcon from '../assets/icons/twitter.svg';
 import telegramIcon from '../assets/icons/telegram.svg';
 import { useNavigate } from 'react-router-dom';
-import { formatBigIntToUsd } from '@/utils/utils';
+import { formatBigIntToUsd, getProgressPercent } from '@/utils/utils';
 import { useMemo } from 'react';
+
+// todo: progess bar
 
 export default function HomeScreen() {
   const navigate = useNavigate();
@@ -22,13 +24,6 @@ export default function HomeScreen() {
   useMemo(() => {
     console.log('pools', pools);
   }, [pools]);
-
-  const getProgressPercent = (numerator: bigint, denominator: string) => {
-    if (!denominator || denominator === '0') return 0;
-    const num = Number(numerator);
-    const denom = Number(denominator);
-    return Math.min((num / denom) * 100, 100);
-  };
 
   // Create mock data to fill the grid like in the image
   const mockTokens = Array.from({ length: 12 }, (_, i) => ({
@@ -101,9 +96,9 @@ export default function HomeScreen() {
                   </p>
                 </div>
 
-                {/* Token Image and Details */}
-                <div className='flex gap-4 mb-6'>
-                  <div className='w-20 h-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex-shrink-0 flex items-center justify-center'>
+                {/* Token Image and All Details */}
+                <div className='flex gap-4'>
+                  <div className='w-32 h-32 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex-shrink-0 flex items-center justify-center'>
                     {pool?.baseToken?.image ? (
                       <img
                         src={pool.baseToken.image}
@@ -114,54 +109,59 @@ export default function HomeScreen() {
                       <span className='text-3xl'>🔥</span>
                     )}
                   </div>
-                  <div className='flex-1 space-y-2'>
-                    <div className='flex justify-between text-sm'>
-                      <span className='text-gray-400'>Created by</span>
-                      <span className='text-white font-mono'>
-                        {pool
-                          ? `${pool.baseToken.address.slice(0, 6)}...${pool.baseToken.address.slice(-4)}`
-                          : mockToken?.creator}
-                      </span>
-                    </div>
-                    <div className='flex justify-between text-sm'>
-                      <span className='text-gray-400'>Market Cap</span>
-                      <span className='text-white font-semibold'>
-                        {pool
-                          ? `$${formatBigIntToUsd(pool.asset.marketCapUsd || BigInt(0))}`
-                          : mockToken?.marketCap}
-                      </span>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Progress Bar */}
-                <div className='mb-4'>
-                  <div className='h-2 bg-gray-700 rounded-full overflow-hidden'>
-                    <div
-                      className='h-full bg-[#7F4DFA] rounded-full transition-all duration-300'
-                      style={{
-                        width: `${
-                          pool
-                            ? getProgressPercent(pool.liquidity, pool.asset.numTokensToSell)
-                            : mockToken?.progress || 50
-                        }%`
-                      }}
-                    />
-                  </div>
-                </div>
+                  {/* Right Side Content */}
+                  <div className='flex-1 space-y-4'>
+                    {/* Created by and Market Cap */}
+                    <div className='space-y-2'>
+                      <div className='flex justify-between text-sm'>
+                        <span className='text-gray-400'>Created by</span>
+                        <span className='text-white font-mono'>
+                          {pool
+                            ? `${pool.baseToken.address.slice(0, 6)}...${pool.baseToken.address.slice(-4)}`
+                            : mockToken?.creator}
+                        </span>
+                      </div>
+                      <div className='flex justify-between text-sm'>
+                        <span className='text-gray-400'>Market Cap</span>
+                        <span className='text-white font-semibold'>
+                          {pool
+                            ? `$${formatBigIntToUsd(pool.asset.marketCapUsd || BigInt(0))}`
+                            : mockToken?.marketCap}
+                        </span>
+                      </div>
+                    </div>
 
-                {/* Action Buttons */}
-                <div className='flex justify-between items-center'>
-                  <div className='flex gap-2'>
-                    <button className='w-8 h-8 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors'>
-                      <img src={websiteIcon} alt='eth' className='w-4 h-4' />
-                    </button>
-                    <button className='w-8 h-8 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors'>
-                      <img src={twitterIcon} alt='eth' className='w-4 h-4' />
-                    </button>
-                    <button className='w-8 h-8 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors'>
-                      <img src={telegramIcon} alt='eth' className='w-4 h-4' />
-                    </button>
+                    {/* Progress Bar */}
+                    <div>
+                      <div className='h-2 bg-gray-700 rounded-full overflow-hidden'>
+                        <div
+                          className='h-full bg-[#7F4DFA] rounded-full transition-all duration-300'
+                          style={{
+                            width: `${
+                              pool
+                                ? getProgressPercent(pool.liquidity, pool.asset.numTokensToSell)
+                                : mockToken?.progress || 50
+                            }%`
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className='flex justify-end'>
+                      <div className='flex gap-2'>
+                        <button className='w-8 h-8 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors'>
+                          <img src={websiteIcon} alt='website' className='w-4 h-4' />
+                        </button>
+                        <button className='w-8 h-8 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors'>
+                          <img src={twitterIcon} alt='twitter' className='w-4 h-4' />
+                        </button>
+                        <button className='w-8 h-8 hover:bg-gray-600 rounded-lg flex items-center justify-center transition-colors'>
+                          <img src={telegramIcon} alt='telegram' className='w-4 h-4' />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
