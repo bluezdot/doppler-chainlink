@@ -155,10 +155,10 @@ export default function TradingHistoryCard(props: Props) {
     !error && (
       <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
         {/* Title */}
-        <h2 className='text-white text-2xl font-bold mb-6'>Trading History</h2>
+        <h2 className='text-[#FFF] text-2xl font-ppfd tracking-wider mb-6'>Trading History</h2>
 
         {/* Table Header */}
-        <div className='grid grid-cols-5 gap-4 mb-4 text-gray-400 text-sm font-medium'>
+        <div className='grid grid-cols-5 gap-4 mb-4 text-[#F7F7F7] text-base font-ppfd tracking-wider'>
           <div>Address</div>
           <div>Type</div>
           <div>Amount</div>
@@ -170,15 +170,15 @@ export default function TradingHistoryCard(props: Props) {
         <div className='space-y-3'>
           {trades.map((trade, index) => (
             <div key={index} className='grid grid-cols-5 gap-4 text-sm'>
-              <div className='text-gray-300'>{shortenAddress(trade.asset.address)}</div>
-              <div className={trade.type === 'buy' ? 'text-green-400' : 'text-purple-400'}>
+              <div className='text-[#F7F7F7]'>{shortenAddress(trade.asset.address)}</div>
+              <div className={trade.type === 'buy' ? 'text-[#47E17B]' : 'text-[#A026C8]'}>
                 {trade.type === 'buy' ? 'Buy' : 'Sell'}
               </div>
-              <div className='text-gray-300'>
+              <div className='text-[#F7F7F7]'>
                 {formatAmount(trade.amountIn)} {props.symbol}
               </div>
-              <div className='text-gray-400'>{timestampToMinutesAgo(trade.timestamp)}</div>
-              <div className='text-gray-400'>{shortenAddress(trade.txHash)}</div>
+              <div className='text-[#F7F7F7]'>{timestampToMinutesAgo(trade.timestamp)}</div>
+              <div className='text-[#F7F7F7]'>{shortenAddress(trade.txHash)}</div>
             </div>
           ))}
         </div>

@@ -11,7 +11,7 @@
 body {
     /* background-color: var(--off-black); */
     color: var(--text-color);
-    font-family: 'Courier New', Courier, monospace;
+    /*font-family: 'Courier New', Courier, monospace;*/
     /*font-family: 'Formula Condensed Bold', sans-serif;*/
     margin: 0;
     padding: 0;
@@ -59,7 +59,7 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Courier New', Courier, monospace;
+    /*font-family: 'Courier New', Courier, monospace;*/
     /*font-family: 'Formula Condensed Bold', sans-serif;*/
     transition: all 0.2s ease;
 }
@@ -104,7 +104,7 @@ body {
 }
 
 .address-text, .balance {
-    font-family: 'Courier New', Courier, monospace;
+    /*font-family: 'Courier New', Courier, monospace;*/
     /*font-family: 'Formula Condensed Bold', sans-serif;*/
     color: var(--text-color);
 }
@@ -235,7 +235,7 @@ body {
     padding: 0.1rem 0.3rem;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Courier New', Courier, monospace;
+    /*font-family: 'Courier New', Courier, monospace;*/
     /*font-family: 'Formula Condensed Bold', sans-serif;*/
     transition: all 0.2s ease;
     margin-left: 0.5rem;

@@ -128,7 +128,7 @@ function DeployDoppler() {
 
   return (
     <div className='max-w-4xl mx-auto p-6'>
-      <h3 className='text-2xl font-bold mb-4'>Deploy Market</h3>
+      <h3 className='text-2xl font-ppfd tracking-wider mb-4'>Deploy Market</h3>
       <Card className='p-6'>
         <form onSubmit={handleDeploy} className='space-y-6'>
           <div className='space-y-4'>
@@ -279,7 +279,7 @@ function DeployDoppler() {
 
           <Button
             type='submit'
-            className='w-full'
+            className='w-full font-ppfd tracking-wider'
             disabled={
               isDeploying ||
               !tokenName ||

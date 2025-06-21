@@ -31,8 +31,7 @@
   body {
     @apply bg-[#0F0F0F] text-white antialiased;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    /*font-family: 'Formula Condensed Bold', sans-serif;*/
+    font-family: 'Inter', sans-serif;
   }
 
   /* Custom chart colors */

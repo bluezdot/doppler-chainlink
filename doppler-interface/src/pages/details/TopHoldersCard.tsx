@@ -87,23 +87,32 @@ export default function TopHoldersCard(props: Props) {
     !error && (
       <div className='p-6' style={{ backgroundColor: '#1A1A1A', borderRadius: '12px' }}>
         {/* Title */}
-        <h2 className='text-white text-2xl font-bold mb-6'>Top holders</h2>
+        <h2 className='text-white text-2xl font-ppfd tracking-wider mb-6'>Top holders</h2>
 
         {/* Holders List */}
         <div className='space-y-4'>
           {holders2.map((holder, rank) => (
             <div key={rank} className='flex items-center justify-between'>
               <div className='flex items-center space-x-3'>
-                {/* Star icon for top 3 holders */}
-                {rank <= 2 ? (
-                  <Star className='w-5 h-5 text-yellow-400 fill-current' />
-                ) : (
-                  <span className='w-5 h-5 flex items-center justify-center text-gray-400 text-sm font-medium'>
-                    {rank}
-                  </span>
-                )}
-                <span className='text-gray-400 text-sm'>{shortenAddress(holder.user.address)}</span>
+                {/* Rank: Star or Number */}
+                <div className='w-7 h-7 flex items-center justify-center relative'>
+                  {rank <= 2 ? (
+                    <>
+                      <Star className='w-7 h-7 text-yellow-400 fill-current' />
+                      <span className='absolute inset-0 flex items-center justify-center text-[10px] text-black font-bold'>
+                        {rank + 1}
+                      </span>
+                    </>
+                  ) : (
+                    <span className='text-gray-400 text-sm font-medium'>{rank + 1}</span>
+                  )}
+                </div>
+
+                {/* Address */}
+                <span className='text-[#999] text-sm'>{shortenAddress(holder.user.address)}</span>
               </div>
+
+              {/* Percentage */}
               <span className='text-white font-medium'>
                 {getProgressPercent(holder.balance, props.currentTotalSales)}
               </span>

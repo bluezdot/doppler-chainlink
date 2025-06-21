@@ -47,9 +47,9 @@ export default function TradingInterfaceCard() {
           className='absolute top-2 bottom-1 rounded-md transition-all duration-300 ease-in-out transform'
           style={{
             backgroundColor: activeTab === 'buy' ? '#47E17B' : '#EF4444',
-            width: 'calc(50% - 4px)',
+            width: activeTab === 'buy' ? 'calc(50% - 4px)' : 'calc(50% - 8px)',
             height: '75%',
-            left: activeTab === 'buy' ? '4px' : 'calc(50% + 0px)',
+            left: activeTab === 'buy' ? '8px' : 'calc(50% + 0px)',
             transform: activeTab === 'buy' ? 'translateX(0)' : 'translateX(0)'
           }}
         />
@@ -58,7 +58,7 @@ export default function TradingInterfaceCard() {
         <div className='relative flex'>
           <button
             onClick={() => setActiveTab('buy')}
-            className={`flex-1 py-3 px-6 rounded-md font-semibold transition-all duration-300 relative z-10 transform hover:scale-105 active:scale-95 ${
+            className={`flex-1 py-3 px-6 rounded-md font-ppfd tracking-widest text-2xl transition-all duration-300 relative z-10 transform hover:scale-105 active:scale-95 ${
               activeTab === 'buy' ? 'text-black' : 'text-white hover:text-gray-300'
             }`}
           >
@@ -66,7 +66,7 @@ export default function TradingInterfaceCard() {
           </button>
           <button
             onClick={() => setActiveTab('sell')}
-            className={`flex-1 py-3 px-6 rounded-md font-semibold transition-all duration-300 relative z-10 transform hover:scale-105 active:scale-95 ${
+            className={`flex-1 py-3 px-6 rounded-md font-ppfd tracking-widest text-2xl transition-all duration-300 relative z-10 transform hover:scale-105 active:scale-95 ${
               activeTab === 'sell' ? 'text-black' : 'text-white hover:text-gray-300'
             }`}
           >
@@ -91,7 +91,7 @@ export default function TradingInterfaceCard() {
             placeholder='Enter amount'
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className='w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors'
+            className='w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition-colors'
             style={{ backgroundColor: '#242424' }}
           />
           <div className='absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2'>
@@ -128,7 +128,7 @@ export default function TradingInterfaceCard() {
       {/* Connect Wallet Button */}
       <button
         onClick={handleConnectWallet}
-        className='w-full bg-violet-500 hover:bg-violet-600 text-black font-semibold py-4 rounded-lg transition-colors'
+        className='w-full bg-violet-500 hover:bg-violet-600 text-black font-ppfd tracking-wider text-xl py-4 rounded-lg transition-colors'
       >
         {isWalletConnected ? 'Trade' : 'Connect Wallet'}
       </button>

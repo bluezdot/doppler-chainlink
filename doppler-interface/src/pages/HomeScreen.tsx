@@ -44,7 +44,7 @@ export default function HomeScreen() {
     <div className='min-h-screen bg-[#0F0F0F] text-white'>
       {/* Main Title Section */}
       <div className='text-center py-16'>
-        <h1 className='text-7xl font-bold tracking-wider mb-4'>SafeLynx</h1>
+        <h1 className='text-7xl tracking-wider mb-4 font-ppfd'>SafeLynx</h1>
         <p className='text-2xl text-gray-400'>Champion Chainlink Hackathon 2025</p>
       </div>
       {/*Filter Controls*/}
@@ -86,7 +86,7 @@ export default function HomeScreen() {
               >
                 {/* Token Header */}
                 <div className='mb-4'>
-                  <h3 className='text-xl font-bold text-white mb-1'>
+                  <h3 className='text-xl font-ppfd tracking-wide text-white mb-1'>
                     {pool?.baseToken?.name || mockToken?.name || 'This is fine'}
                   </h3>
                   <p className='text-sm text-gray-400'>
@@ -116,7 +116,7 @@ export default function HomeScreen() {
                     <div className='space-y-2'>
                       <div className='flex justify-between text-sm'>
                         <span className='text-gray-400'>Created by</span>
-                        <span className='text-white font-mono'>
+                        <span className='text-white'>
                           {pool
                             ? `${pool.baseToken.address.slice(0, 6)}...${pool.baseToken.address.slice(-4)}`
                             : mockToken?.creator}
@@ -124,7 +124,7 @@ export default function HomeScreen() {
                       </div>
                       <div className='flex justify-between text-sm'>
                         <span className='text-gray-400'>Market Cap</span>
-                        <span className='text-white font-semibold'>
+                        <span className='text-white'>
                           {pool
                             ? `$${formatBigIntToUsd(pool.asset.marketCapUsd || BigInt(0))}`
                             : mockToken?.marketCap}

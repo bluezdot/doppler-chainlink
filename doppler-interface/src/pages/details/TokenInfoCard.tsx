@@ -111,7 +111,7 @@ export default function TokenInfoCard(props: Props) {
 
         {/* Token Name and Social Icons */}
         <div className='flex-1'>
-          <h1 className='text-white text-4xl font-bold mb-3'>
+          <h1 className='text-white text-4xl font-ppfd tracking-wider mb-3'>
             {poolInfo?.baseToken?.name || defaultPoolInfo.baseToken.name}
           </h1>
 
@@ -156,7 +156,7 @@ export default function TokenInfoCard(props: Props) {
 
         {/* Price */}
         <div>
-          <div className='text-white text-lg font-semibold mb-1'>
+          <div className='text-white text-2xl font-ppfd tracking-widest mb-1'>
             {poolInfo?.price && poolInfo?.quoteToken?.symbol
               ? handleDisplayNumber(
                   formatPrice(formatBigIntToUsd(poolInfo?.price)),
@@ -172,7 +172,7 @@ export default function TokenInfoCard(props: Props) {
 
         {/* Market Cap */}
         <div>
-          <div className='text-white text-lg font-semibold mb-1'>
+          <div className='text-white text-2xl font-ppfd tracking-widest mb-1'>
             {handleDisplayNumber(
               formatPrice(
                 formatBigIntToUsd(
@@ -208,7 +208,7 @@ export default function TokenInfoCard(props: Props) {
 
         {/* Virtual Liquidity */}
         <div>
-          <div className='text-white text-lg font-semibold mb-1'>
+          <div className='text-white text-2xl font-ppfd tracking-widest mb-1'>
             {handleDisplayNumber(
               formatPrice(formatBigIntToUsd(poolInfo?.liquidity || defaultPoolInfo.liquidity))
             )}
@@ -218,7 +218,7 @@ export default function TokenInfoCard(props: Props) {
 
         {/* 24h Volume */}
         <div>
-          <div className='text-white text-lg font-semibold mb-1'>
+          <div className='text-white text-2xl font-ppfd tracking-widest mb-1'>
             {handleDisplayNumber(
               formatPrice(
                 formatBigIntToUsd(

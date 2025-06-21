@@ -4,6 +4,11 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                ppfd: ['Formula Condensed Bold', 'sans-serif'],
+                ppfdl: ['Formula Condensed Light', 'sans-serif']
+            },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',

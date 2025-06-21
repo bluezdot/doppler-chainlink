@@ -41,14 +41,14 @@ function App() {
               src={'/images/SafeLynx.png'}
               className='w-16 h-16'
             ></img>
-            <span className='text-lg font-bold tracking-wider'>LEVEL</span>
+            <span className='text-lg font-bold tracking-wider font-ppfd'>SafeLynx</span>
           </div>
           <div className='flex gap-3'>
             {account.status === 'connected' ? (
               <div className='flex items-center gap-4'>
                 <Button
                   variant='outline'
-                  className='bg-transparent border-gray-600 text-white hover:bg-gray-800'
+                  className='bg-transparent border-gray-600 text-white hover:bg-gray-800 font-ppfd tracking-wide'
                 >
                   <Link to='/deploy'>Create Token</Link>
                 </Button>
@@ -60,7 +60,7 @@ function App() {
                 <Button
                   variant='outline'
                   onClick={handleDisconnect}
-                  className='bg-transparent border-gray-600 text-white hover:bg-gray-800'
+                  className='bg-transparent border-gray-600 text-white hover:bg-gray-800 font-ppfd tracking-wide'
                 >
                   Disconnect
                 </Button>
@@ -69,12 +69,12 @@ function App() {
               <>
                 <Button
                   variant='outline'
-                  className='bg-transparent border-gray-600 text-white hover:bg-gray-800'
+                  className='bg-transparent border-gray-600 text-white hover:bg-gray-800 font-ppfd tracking-wide'
                   asChild
                 >
                   <Link to='/deploy'>Create Token</Link>
                 </Button>
-                <Button className='bg-[#7F4DFA] hover:bg-[#6B3FE8]' onClick={handleConnect}>
+                <Button className='bg-[#7F4DFA] hover:bg-[#6B3FE8] font-ppfd tracking-wide' onClick={handleConnect}>
                   Connect Wallet
                 </Button>
               </>
