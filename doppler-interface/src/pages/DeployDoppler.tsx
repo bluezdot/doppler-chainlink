@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { addresses } from '@/addresses';
-import { useAccount, useWalletClient } from 'wagmi';
+import { useAccount, useConnect, useWalletClient } from 'wagmi';
 import { ReadWriteFactory, CreateV3PoolParams } from 'doppler-v3-sdk';
 import { getDrift } from '@/utils/drift';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 const TICK_SPACING = 200;
 const weth = '0x4200000000000000000000000000000000000006';
 
+// todo: handle other data than token name and symbol
+// todo: recheck rpc when deploying
+
 function roundToTickSpacing(tick: number): number {
   return Math.round(tick / TICK_SPACING) * TICK_SPACING;
 }
@@ -20,6 +23,7 @@ function roundToTickSpacing(tick: number): number {
 function DeployDoppler() {
   const account = useAccount();
   const { data: walletClient } = useWalletClient(account);
+  const { connectors, connect } = useConnect();
   const [initialSupply, setInitialSupply] = useState('');
   const [numTokensToSell, setNumTokensToSell] = useState('');
   const [tokenName, setTokenName] = useState('');
@@ -89,11 +93,10 @@ function DeployDoppler() {
   };
 
   const handleDeploy = async (e: React.FormEvent) => {
-    if (!walletClient) throw new Error('Wallet client not found');
+    if (!walletClient) connect({ connector: connectors[0] });
     e.preventDefault();
     setIsDeploying(true);
     try {
-      if (!weth) throw new Error('WETH address not loaded');
       if (!account.address) throw new Error('Account address not found');
 
       const createV3PoolParams: CreateV3PoolParams = {
@@ -118,6 +121,7 @@ function DeployDoppler() {
       // @ts-ignore
       const rwFactory = new ReadWriteFactory(airlock, drift);
       const createData = await rwFactory.encodeCreateData(createV3PoolParams);
+      await rwFactory.simulateCreate(createData);
       await rwFactory.create(createData);
     } catch (error) {
       console.error('Deployment failed:', error);

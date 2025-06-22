@@ -22,9 +22,14 @@ export default function TradingHistoryCard(props: Props) {
     error,
     isLoading
   } = useQuery({
-    queryKey: ['trades', '0xb60558c2695e3644eeb6d86a10505a5059334c38', chainId],
-    queryFn: async () => getTrades('0xb60558c2695e3644eeb6d86a10505a5059334c38' as Address, chainId)
+    queryKey: ['trades', id, chainId],
+    queryFn: async () => getTrades(id as Address, chainId)
   });
+
+  const handleViewTx = (txHash: string) => {
+    // Điều hướng đến trang transaction detail
+    window.open(`https://sepolia.basescan.org/tx/${txHash}`, '_blank');
+  };
 
   // Sample trading data
   const defaultTrades: Trades = [
@@ -178,7 +183,13 @@ export default function TradingHistoryCard(props: Props) {
                 {formatAmount(trade.amountIn)} {props.symbol}
               </div>
               <div className='text-[#F7F7F7]'>{timestampToMinutesAgo(trade.timestamp)}</div>
-              <div className='text-[#F7F7F7]'>{shortenAddress(trade.txHash)}</div>
+              <div
+                className='text-[#F7F7F7] cursor-pointer hover:text-[#47E17B] hover:underline transition-colors duration-200'
+                onClick={() => handleViewTx(trade.txHash)}
+                title={`Click to view transaction: ${trade.txHash}`}
+              >
+                {shortenAddress(trade.txHash)}
+              </div>
             </div>
           ))}
         </div>

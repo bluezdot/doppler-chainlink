@@ -54,7 +54,7 @@ export default function PriceChallengeCard(props: Props) {
         {/* Countdown Timer */}
         <div className='flex items-center gap-2'>
           <div className='flex items-center justify-center rounded-lg w-[41px] h-[46px] bg-[#47E17B]'>
-            <span className='font-bold tracking-wider font-ppfd text-[28px] leading-none text-[#0F0F0F] translate-y-[3px]'>
+            <span className='tracking-wider font-ppfd text-[28px] leading-none text-[#0F0F0F] translate-y-[3px]'>
               {formatTime(timeLeft.minutes)}
             </span>
           </div>
@@ -64,7 +64,7 @@ export default function PriceChallengeCard(props: Props) {
           </span>
 
           <div className='flex items-center justify-center rounded-lg w-[40px] h-[46px] bg-[#47E17B]'>
-            <span className='font-bold tracking-wider font-ppfd text-[28px] leading-none text-[#0F0F0F] translate-y-[3px]'>
+            <span className='tracking-wider font-ppfd text-[28px] leading-none text-[#0F0F0F] translate-y-[3px]'>
               {formatTime(timeLeft.seconds)}
             </span>
           </div>

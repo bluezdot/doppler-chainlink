@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useAccount, useConnect, useBalance, useSwitchChain, useDisconnect } from 'wagmi';
 import DeployDoppler from './pages/DeployDoppler';
-import ViewDopplerV2 from './pages/ViewDopplerV2';
+import ViewDoppler from './pages/ViewDoppler';
 import HomeScreen from './pages/HomeScreen';
-import TokenDetail from './pages/TokenDetail';
 import { Button } from '@/components/ui/button';
 import './theme.css';
 
@@ -37,11 +36,12 @@ function App() {
       <div className='min-h-screen bg-[#0F0F0F] text-white'>
         <header className='flex justify-between items-center p-6'>
           <div className='flex items-center gap-2'>
-            <img
-              src={'/images/SafeLynx.png'}
-              className='w-16 h-16'
-            ></img>
-            <span className='text-lg font-bold tracking-wider font-ppfd'>SafeLynx</span>
+            <Link to='/'>
+              <img src={'/images/SafeLynx.png'} alt={'Logo'} className='w-16 h-16'></img>
+            </Link>
+            <Link to='/'>
+              <span className='text-2xl tracking-wider font-ppfd'>SafeLynx</span>
+            </Link>
           </div>
           <div className='flex gap-3'>
             {account.status === 'connected' ? (
@@ -74,7 +74,10 @@ function App() {
                 >
                   <Link to='/deploy'>Create Token</Link>
                 </Button>
-                <Button className='bg-[#7F4DFA] hover:bg-[#6B3FE8] font-ppfd tracking-wide' onClick={handleConnect}>
+                <Button
+                  className='bg-[#7F4DFA] hover:bg-[#6B3FE8] font-ppfd tracking-wide'
+                  onClick={handleConnect}
+                >
                   Connect Wallet
                 </Button>
               </>
@@ -97,8 +100,7 @@ function App() {
           <Routes>
             <Route path='/' element={<HomeScreen />} />
             <Route path='/deploy' element={<DeployDoppler />} />
-            <Route path='/doppler/detail' element={<TokenDetail />} />
-            <Route path='/doppler-v2/:id' element={<ViewDopplerV2 />} />
+            <Route path='/doppler-v2/:id' element={<ViewDoppler />} />
           </Routes>
         </main>
       </div>

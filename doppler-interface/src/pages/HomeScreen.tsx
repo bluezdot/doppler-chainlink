@@ -5,7 +5,7 @@ import twitterIcon from '../assets/icons/twitter.svg';
 import telegramIcon from '../assets/icons/telegram.svg';
 import { useNavigate } from 'react-router-dom';
 import { formatBigIntToUsd, getProgressPercent } from '@/utils/utils';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 
 // todo: progess bar
 
@@ -21,7 +21,7 @@ export default function HomeScreen() {
     queryFn: getPools
   });
 
-  useMemo(() => {
+  useEffect(() => {
     console.log('pools', pools);
   }, [pools]);
 
@@ -50,7 +50,7 @@ export default function HomeScreen() {
       {/*Filter Controls*/}
       <div className='flex justify-center gap-4 mb-12 px-8'>
         <div className='bg-[#1A1A1A] rounded-lg px-4 py-2 text-sm flex items-center gap-2 border border-gray-700'>
-          <span>🌐 Multichain</span>
+          <span>🌐 Base Sepolia</span>
           <svg className='w-4 h-4' fill='currentColor' viewBox='0 0 20 20'>
             <path
               fillRule='evenodd'
@@ -118,7 +118,7 @@ export default function HomeScreen() {
                         <span className='text-gray-400'>Created by</span>
                         <span className='text-white'>
                           {pool
-                            ? `${pool.baseToken.address.slice(0, 6)}...${pool.baseToken.address.slice(-4)}`
+                            ? `${pool.baseToken.creatorAddress.slice(0, 6)}...${pool.baseToken.creatorAddress.slice(-4)}`
                             : mockToken?.creator}
                         </span>
                       </div>
