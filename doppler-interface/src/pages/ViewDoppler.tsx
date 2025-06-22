@@ -13,7 +13,6 @@ import { ReadQuoter } from 'doppler-v3-sdk';
 import { getDrift } from '@/utils/drift';
 import { Button, Card, Input, Label, Separator, Skeleton } from '@/components/ui';
 import LiquidityChart from '../components/LiquidityChart';
-import TokenName from '../components/TokenName';
 import { addresses } from '@/addresses';
 import { useQuery } from '@tanstack/react-query';
 import { getPool } from '@/gql';
@@ -22,7 +21,7 @@ import TradingHistoryCard from '@/pages/details/TradingHistoryCard';
 import BondingCurveCard from '@/pages/details/BondingCurveCard';
 import TradingChartCard from '@/pages/details/TradingChartCard';
 import TokenInfoCard from '@/pages/details/TokenInfoCard';
-import TradingInterfaceCard from '@/pages/details/TradingInterfaceCard';
+import TradingInterfaceCard, { TokenBalance } from '@/pages/details/TradingInterfaceCard';
 import PriceChallengeCard from '@/pages/details/PriceChallengeCard';
 
 function ViewDoppler() {
@@ -55,8 +54,6 @@ function ViewDoppler() {
     }
   });
 
-  console.log('pool', pool, isLoading, error);
-
   const { data: _baseTokenBalance } = useBalance({
     address: account.address,
     token: pool?.baseToken?.address as Address
@@ -71,13 +68,13 @@ function ViewDoppler() {
     ..._baseTokenBalance,
     symbol: pool?.baseToken?.symbol,
     name: pool?.baseToken?.name
-  };
+  } as TokenBalance;
 
   const quoteTokenBalance = {
     ..._quoteTokenBalance,
     symbol: pool?.quoteToken?.symbol,
     name: pool?.quoteToken?.name
-  };
+  } as TokenBalance;
 
   const [swapState, setSwapState] = useState({
     numeraireAmount: '',
@@ -250,7 +247,12 @@ function ViewDoppler() {
           </div>
           <div className='col-span-4 space-y-6'>
             <div ref={tradingInterfaceRef}>
-              <TradingInterfaceCard className='h-full' />
+              <TradingInterfaceCard
+                price={pool.price.toString()}
+                quoteTokenBalance={quoteTokenBalance}
+                baseTokenBalance={baseTokenBalance}
+                className='h-full'
+              />
             </div>
             {isPCPhase ? (
               <div ref={priceChallengeRef}>

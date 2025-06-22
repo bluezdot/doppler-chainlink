@@ -5,6 +5,9 @@ import { Address } from 'viem';
 import { useParams } from 'react-router-dom';
 import { getProgressPercent, shortenAddress } from '@/utils/utils';
 
+// todo: lọc địa chỉ 0x0000000000000000000000000000000000000000, địa chỉ 0x7e6cf695a8bea4b2bf94fbb5434a7da3f39a2f8d (airlock), địa chỉ pool, địa chỉ asset, địa chỉ timelock (VD: 0x5a821a9476d74db39b05acabedaef1370ca21a8b)
+// todo: fix id. Phải dùng địa chỉ token mới đúng.
+
 interface Holder {
   rank: number;
   address: string;
@@ -114,7 +117,7 @@ export default function TopHoldersCard(props: Props) {
 
               {/* Percentage */}
               <span className='text-white font-medium'>
-                {getProgressPercent(holder.balance, props.currentTotalSales)}
+                {getProgressPercent(holder.balance, props.currentTotalSales)}%
               </span>
             </div>
           ))}
