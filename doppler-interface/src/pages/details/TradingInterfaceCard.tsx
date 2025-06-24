@@ -35,10 +35,10 @@ export default function TradingInterfaceCard({
   const [balance, setBalance] = useState('');
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [quickAmounts, setQuickAmounts] = useState([
-    '0.1 WETH',
-    '0.2 WETH',
-    '0.5 WETH',
-    '0.8 WETH',
+    '5%',
+    '10%',
+    '20%',
+    '50%',
     'Max'
   ]);
 

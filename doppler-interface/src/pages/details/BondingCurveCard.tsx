@@ -1,3 +1,5 @@
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
 interface Props {
   //   progress: number; // in %
   //   availableToken: bigint;
@@ -25,14 +27,23 @@ export default function BondingCurveCard(props: Props) {
       </h2>
 
       {/* Progress Bar */}
-      <div className='mb-6'>
-        <div className='w-full bg-gray-600 rounded-full h-3'>
-          <div
-            className='bg-violet-500 h-3 rounded-full transition-all duration-300 ease-in-out'
-            style={{ width: `${progressPercentage}%` }}
-          ></div>
-        </div>
-      </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className='mb-6'>
+              <div className='w-full bg-gray-600 rounded-full h-3 cursor-pointer'>
+                <div
+                  className='bg-violet-500 h-3 rounded-full transition-all duration-300 ease-in-out'
+                  style={{ width: `${progressPercentage}%` }}
+                ></div>
+              </div>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{progressPercentage}%</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
       {/* Description Text */}
       <p className='text-gray-400 tracking-tighter text-base leading-relaxed'>

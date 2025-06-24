@@ -147,7 +147,7 @@ export default function TokenInfoCard(props: Props) {
         <div>
           <div className='flex items-center gap-2 mb-1'>
             <span className='text-white text-sm'>
-              {shortenAddress(poolInfo?.address || defaultPoolInfo.address)}
+              {shortenAddress(poolInfo?.baseToken.address || defaultPoolInfo.address)}
             </span>
             <button
               onClick={() => handleCopyAddress(poolInfo?.address || defaultPoolInfo.address)}

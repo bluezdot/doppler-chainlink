@@ -11,8 +11,8 @@ interface Props {
 export default function PriceChallengeCard(props: Props) {
   const [timeLeft, setTimeLeft] = useState({ minutes: 29, seconds: 12 });
   const [currentPrice] = useState('$0.0424232');
-  const [initialPrice] = useState('$2,205.80');
-  const [targetPrice] = useState('$2,205.80');
+  const [initialPrice] = useState('$0.0254');
+  const [targetPrice] = useState('$1.5');
 
   // Countdown timer effect
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function PriceChallengeCard(props: Props) {
               Initial
             </div>
             <div
-              className='text-white font-ppfd tracking-wider'
+              className='text-white font-ppfd tracking-wider text-right'
               style={{
                 fontSize: '32px',
                 lineHeight: '43px'
@@ -162,7 +162,7 @@ export default function PriceChallengeCard(props: Props) {
               Target price
             </div>
             <div
-              className='text-white font-ppfd tracking-wider'
+              className='text-white font-ppfd tracking-wider text-right'
               style={{
                 fontSize: '32px',
                 lineHeight: '43px'
