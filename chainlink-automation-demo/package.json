@@ -1,0 +1,27 @@
+{
+  "name": "chainlink-automation-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "register": "hardhat run scripts/register-automation.ts",
+    "start-automation": "hardhat run scripts/start-automation.ts"
+  },
+  "keywords": ["chainlink", "automation", "price-feed"],
+  "author": "",
+  "license": "ISC",
+  "description": "Chainlink Automation demo for price monitoring",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@chainlink/contracts": "^0.8.0",
+    "@types/node": "^20.0.0",
+    "hardhat": "^2.19.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
+}
