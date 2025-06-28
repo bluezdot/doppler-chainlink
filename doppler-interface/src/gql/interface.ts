@@ -24,8 +24,8 @@ export interface Pool {
   isToken0: boolean;
   lastRefreshed: bigint | null;
   lastSwapTimestamp: bigint | null;
-  reserves0: bigint;
-  reserves1: bigint;
+  reserves0: string;
+  reserves1: string;
   marketCapUsd?: bigint;
 }
 

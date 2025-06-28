@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Settings } from 'lucide-react';
 import { BigNumber } from 'bignumber.js';
+import { useAccount, useConnect } from 'wagmi';
 
 // todo: balance
 // todo: handle connect wallet/trade
@@ -30,17 +31,12 @@ export default function TradingInterfaceCard({
   quoteTokenBalance,
   price
 }: Props) {
+  const account = useAccount();
+  const { connectors, connect } = useConnect();
   const [activeTab, setActiveTab] = useState<'buy' | 'sell'>('buy');
   const [amount, setAmount] = useState('');
   const [balance, setBalance] = useState('');
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [quickAmounts, setQuickAmounts] = useState([
-    '5%',
-    '10%',
-    '20%',
-    '50%',
-    'Max'
-  ]);
+  const [quickAmounts] = useState(['5%', '10%', '20%', '50%', 'Max']);
 
   const handleQuickAmount = (quickAmount: string) => {
     if (quickAmount === 'Max') {
@@ -75,7 +71,11 @@ export default function TradingInterfaceCard({
   };
 
   const handleConnectWallet = () => {
-    setIsWalletConnected(!isWalletConnected);
+    connect({ connector: connectors[0] });
+  };
+
+  const handleTrade = () => {
+    console.log('implement later');
   };
 
   useEffect(() => {
@@ -206,10 +206,10 @@ export default function TradingInterfaceCard({
 
       {/* Connect Wallet Button */}
       <button
-        onClick={handleConnectWallet}
+        onClick={account.status === 'connected' ? handleConnectWallet : handleTrade}
         className='w-full bg-violet-500 hover:bg-violet-600 text-black font-ppfd tracking-wider text-xl py-4 rounded-lg transition-colors'
       >
-        {isWalletConnected ? 'Trade' : 'Connect Wallet'}
+        {account.status === 'connected' ? 'Trade' : 'Connect Wallet'}
       </button>
     </div>
   );

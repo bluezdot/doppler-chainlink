@@ -140,7 +140,7 @@ export default function HomeScreen() {
                           style={{
                             width: `${
                               pool
-                                ? getProgressPercent(pool.liquidity, pool.asset.numTokensToSell)
+                                ? getProgressPercent(pool.reserves0, pool.asset.numTokensToSell)
                                 : mockToken?.progress || 50
                             }%`
                           }}
